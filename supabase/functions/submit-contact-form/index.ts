@@ -22,6 +22,7 @@ Deno.serve(async (req: Request) => {
   try {
     // Only allow POST requests
     if (req.method !== 'POST') {
+      console.error('Method not allowed:', req.method);
       return new Response(
         JSON.stringify({ error: 'Method not allowed' }),
         { 
@@ -33,9 +34,21 @@ Deno.serve(async (req: Request) => {
 
     // Parse request body
     const formData: ContactFormData = await req.json();
+    console.log('Received form data:', { 
+      name: formData.name, 
+      email: formData.email, 
+      subject: formData.subject,
+      messageLength: formData.message?.length 
+    });
 
     // Validate required fields
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      console.error('Missing required fields:', {
+        name: !!formData.name,
+        email: !!formData.email,
+        subject: !!formData.subject,
+        message: !!formData.message
+      });
       return new Response(
         JSON.stringify({ error: 'All fields are required' }),
         { 
@@ -48,6 +61,7 @@ Deno.serve(async (req: Request) => {
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
+      console.error('Invalid email format:', formData.email);
       return new Response(
         JSON.stringify({ error: 'Invalid email format' }),
         { 
@@ -57,29 +71,17 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Initialize Supabase client
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-    );
-
-    // Insert contact message into database
-    const { data, error } = await supabase
-      .from('contact_messages')
-      .insert([
-        {
-          name: formData.name.trim(),
-          email: formData.email.trim().toLowerCase(),
-          subject: formData.subject.trim(),
-          message: formData.message.trim(),
-        }
-      ])
-      .select();
-
-    if (error) {
-      console.error('Database error:', error);
+    // Check environment variables
+    const supabaseUrl = Deno.env.get('SUPABASE_URL');
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    
+    if (!supabaseUrl || !supabaseServiceKey) {
+      console.error('Missing environment variables:', {
+        hasUrl: !!supabaseUrl,
+        hasServiceKey: !!supabaseServiceKey
+      });
       return new Response(
-        JSON.stringify({ error: 'Failed to save message' }),
+        JSON.stringify({ error: 'Server configuration error' }),
         { 
           status: 500, 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
@@ -87,12 +89,64 @@ Deno.serve(async (req: Request) => {
       );
     }
 
+    // Initialize Supabase client
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    console.log('Supabase client initialized');
+
+    // Prepare data for insertion
+    const insertData = {
+      name: formData.name.trim(),
+      email: formData.email.trim().toLowerCase(),
+      subject: formData.subject.trim(),
+      message: formData.message.trim(),
+    };
+
+    console.log('Attempting to insert data into contact_messages table');
+
+    // Insert contact message into database
+    const { data, error } = await supabase
+      .from('contact_messages')
+      .insert([insertData])
+      .select();
+
+    if (error) {
+      console.error('Database insertion error:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code
+      });
+      
+      // Provide more specific error messages based on the error
+      let errorMessage = 'Failed to save message';
+      if (error.code === '42P01') {
+        errorMessage = 'Database table not found. Please contact support.';
+      } else if (error.code === '23505') {
+        errorMessage = 'Duplicate entry detected.';
+      } else if (error.message.includes('permission')) {
+        errorMessage = 'Database permission error. Please contact support.';
+      }
+      
+      return new Response(
+        JSON.stringify({ 
+          error: errorMessage,
+          details: error.message // Include technical details for debugging
+        }),
+        { 
+          status: 500, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      );
+    }
+
+    console.log('Successfully inserted contact message:', data?.[0]?.id);
+
     // Return success response
     return new Response(
       JSON.stringify({ 
         success: true, 
         message: 'Message sent successfully',
-        id: data[0]?.id 
+        id: data?.[0]?.id 
       }),
       { 
         status: 200, 
@@ -101,9 +155,17 @@ Deno.serve(async (req: Request) => {
     );
 
   } catch (error) {
-    console.error('Function error:', error);
+    console.error('Function execution error:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+    
     return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
+      JSON.stringify({ 
+        error: 'Internal server error',
+        details: error.message
+      }),
       { 
         status: 500, 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
