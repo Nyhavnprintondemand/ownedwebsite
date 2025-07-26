@@ -184,6 +184,21 @@ const ContactPage: React.FC = () => {
                     <p className="text-red-800 text-sm">{submitError}</p>
                   </div>
                 )}
+            {isSubmitted ? (
+              <div key="success-message" className="text-center py-8">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Send className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Tak for din besked!</h3>
+                <p className="text-gray-600">Vi vender tilbage til dig inden for 24 timer.</p>
+              </div>
+            ) : (
+              <form key="contact-form" onSubmit={handleSubmit} className="space-y-6">
+                {submitError && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <p className="text-red-800 text-sm">{submitError}</p>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
