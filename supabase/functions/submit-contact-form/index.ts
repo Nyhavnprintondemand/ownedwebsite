@@ -13,6 +13,79 @@ interface ContactFormData {
   message: string;
 }
 
+interface ResendEmailPayload {
+  from: string;
+  to: string;
+  subject: string;
+  html: string;
+}
+
+async function sendEmailViaResend(formData: ContactFormData): Promise<{ success: boolean; error?: string }> {
+  try {
+    const resendApiKey = Deno.env.get('RESEND_API_KEY');
+    
+    if (!resendApiKey) {
+      console.error('RESEND_API_KEY not found in environment variables');
+      return { success: false, error: 'Email service not configured' };
+    }
+
+    // Email payload for Resend
+    const emailPayload: ResendEmailPayload = {
+      from: 'onboarding@resend.dev', // Use your verified domain email here
+      to: 'nyhavnprintondemand@gmail.com', // Your business email
+      subject: `Ny kontaktformular besked fra ${formData.name}`,
+      html: `
+        <h2>Ny kontaktformular besked</h2>
+        <p><strong>Navn:</strong> ${formData.name}</p>
+        <p><strong>Email:</strong> ${formData.email}</p>
+        <p><strong>Emne:</strong> ${formData.subject}</p>
+        <p><strong>Besked:</strong></p>
+        <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 10px 0;">
+          ${formData.message.replace(/\n/g, '<br>')}
+        </div>
+        <hr>
+        <p style="color: #666; font-size: 12px;">
+          Denne besked blev sendt fra kontaktformularen på nyhavnpod.dk
+        </p>
+      `
+    };
+
+    // Send email via Resend API
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${resendApiKey}`,
+      },
+      body: JSON.stringify(emailPayload),
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      console.error('Resend API error:', {
+        status: response.status,
+        statusText: response.statusText,
+        data: responseData
+      });
+      return { 
+        success: false, 
+        error: `Email sending failed: ${responseData.message || response.statusText}` 
+      };
+    }
+
+    console.log('Email sent successfully via Resend:', responseData.id);
+    return { success: true };
+
+  } catch (error) {
+    console.error('Error sending email via Resend:', error);
+    return { 
+      success: false, 
+      error: `Email sending error: ${error.message}` 
+    };
+  }
+}
+
 Deno.serve(async (req: Request) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -141,11 +214,25 @@ Deno.serve(async (req: Request) => {
 
     console.log('Successfully inserted contact message:', data?.[0]?.id);
 
+    // Send email notification
+    console.log('Attempting to send email notification via Resend');
+    const emailResult = await sendEmailViaResend(formData);
+    
+    if (!emailResult.success) {
+      console.error('Email sending failed:', emailResult.error);
+      // Note: We don't return an error here because the message was saved successfully
+      // The email failure is logged but doesn't prevent the success response
+    } else {
+      console.log('Email notification sent successfully');
+    }
+
     // Return success response
     return new Response(
       JSON.stringify({ 
         success: true, 
-        message: 'Message sent successfully',
+        message: emailResult.success 
+          ? 'Message sent successfully and email notification delivered' 
+          : 'Message sent successfully (email notification failed)',
         id: data?.[0]?.id 
       }),
       { 
