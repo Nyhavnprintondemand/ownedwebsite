@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { CreditCard, Truck, Shield, Check } from 'lucide-react';
+import { CreditCard, Truck, Shield, Check, AlertCircle } from 'lucide-react';
 
 const CheckoutPage: React.FC = () => {
-  const { items, getTotalPrice } = useCart();
+  const { items, getTotalPrice, clearCart } = useCart();
   const [currentStep, setCurrentStep] = useState(1);
   const [orderComplete, setOrderComplete] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [orderError, setOrderError] = useState<string | null>(null);
+  const [orderId, setOrderId] = useState<string>('');
 
   const [customerInfo, setCustomerInfo] = useState({
     email: '',
@@ -25,13 +28,89 @@ const CheckoutPage: React.FC = () => {
   const shipping = shippingMethod === 'express' ? 79 : 39;
   const total = subtotal + shipping;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setOrderError(null);
+    
     if (currentStep < 3) {
       setCurrentStep(currentStep + 1);
     } else {
-      // Process order
+      // Process the actual order
+      await processOrder();
+    }
+  };
+
+  const processOrder = async () => {
+    setIsProcessing(true);
+    setOrderError(null);
+
+    try {
+      // Get Supabase URL from environment
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      
+      if (!supabaseUrl) {
+        throw new Error('Supabase configuration not found. Please connect to Supabase first.');
+      }
+
+      // Prepare order data
+      const orderData = {
+        customerInfo: {
+          email: customerInfo.email.trim(),
+          firstName: customerInfo.firstName.trim(),
+          lastName: customerInfo.lastName.trim(),
+          phone: customerInfo.phone?.trim() || '',
+          address: customerInfo.address.trim(),
+          city: customerInfo.city.trim(),
+          postalCode: customerInfo.postalCode.trim(),
+          country: customerInfo.country
+        },
+        items: items.map(item => ({
+          id: item.id,
+          name: item.name,
+          size: item.size,
+          color: item.color,
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image,
+          artwork: item.artwork
+        })),
+        shippingMethod,
+        paymentMethod,
+        subtotal,
+        shippingCost: shipping,
+        totalAmount: total
+      };
+
+      console.log('Submitting order:', orderData);
+
+      // Submit order to Edge Function
+      const response = await fetch(`${supabaseUrl}/functions/v1/submit-order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to process order');
+      }
+
+      console.log('Order processed successfully:', result);
+
+      // Clear the cart and show success
+      clearCart();
+      setOrderId(result.orderId || 'Unknown');
       setOrderComplete(true);
+      
+    } catch (error) {
+      console.error('Error processing order:', error);
+      setOrderError(error instanceof Error ? error.message : 'Failed to process order. Please try again.');
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -65,7 +144,7 @@ const CheckoutPage: React.FC = () => {
             Du vil modtage en bekræftelsesmail inden for få minutter.
           </p>
           <p className="text-sm text-gray-500 mb-8">
-            Ordre ID: #NYH{Math.random().toString(36).substr(2, 9).toUpperCase()}
+            Ordre ID: #{orderId}
           </p>
           <a
             href="/"
@@ -325,11 +404,22 @@ const CheckoutPage: React.FC = () => {
 
               {/* Navigation Buttons */}
               <div className="flex justify-between items-center mt-8 pt-6 border-t">
+                {orderError && (
+                  <div className="w-full mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-3">
+                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-red-800 font-medium">Der opstod en fejl</p>
+                      <p className="text-red-700 text-sm mt-1">{orderError}</p>
+                    </div>
+                  </div>
+                )}
+                
                 {currentStep > 1 && (
                   <button
                     type="button"
                     onClick={() => setCurrentStep(currentStep - 1)}
-                    className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={isProcessing}
                   >
                     Tilbage
                   </button>
@@ -337,9 +427,17 @@ const CheckoutPage: React.FC = () => {
                 
                 <button
                   type="submit"
-                  className="ml-auto px-8 py-3 bg-accent-orange text-white font-semibold rounded-lg hover:bg-accent-orange-dark transition-colors"
+                  disabled={isProcessing}
+                  className="ml-auto px-8 py-3 bg-accent-orange text-white font-semibold rounded-lg hover:bg-accent-orange-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                 >
-                  {currentStep === 3 ? 'Gennemfør bestilling' : 'Fortsæt'}
+                  {isProcessing ? (
+                    <>
+                      <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Behandler ordre...
+                    </>
+                  ) : (
+                    currentStep === 3 ? 'Gennemfør bestilling' : 'Fortsæt'
+                  )}
                 </button>
               </div>
             </form>
