@@ -56,20 +56,19 @@ function formatCurrency(amount: number): string {
 function generateCustomerEmailHTML(orderData: OrderData, orderId: string): string {
   const itemsHTML = orderData.items.map(item => `
     <tr style="border-bottom: 1px solid #eee;">
-      <td style="padding: 15px 0; vertical-align: top;">
-        <div style="display: flex; align-items: flex-start; gap: 15px;">
-          <img src="${item.image}" alt="${item.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
-          <div>
-            <h3 style="margin: 0 0 5px 0; font-size: 16px; color: #333;">${item.name}</h3>
-            <p style="margin: 2px 0; color: #666; font-size: 14px;">Størrelse: ${item.size}</p>
-            <p style="margin: 2px 0; color: #666; font-size: 14px;">Farve: ${item.color}</p>
-            <p style="margin: 2px 0; color: #666; font-size: 14px;">Antal: ${item.quantity}</p>
-            ${item.artwork ? '<p style="margin: 2px 0; color: #FF6600; font-size: 14px;">✓ Custom design inkluderet</p>' : ''}
-          </div>
-        </div>
+      <td style="padding: 10px; border: 1px solid #ddd;">
+        <strong>${item.name}</strong><br>
+        Størrelse: ${item.size}<br>
+        Farve: ${item.color}<br>
+        Antal: ${item.quantity}<br>
+        ${item.artwork ? `
+          <span style="color: #FF6600;">✓ Custom design</span><br>
+          <img src="${item.artwork}" alt="Custom design" style="max-width: 150px; max-height: 150px; margin-top: 10px; border-radius: 8px; border: 1px solid #ddd;">
+        ` : 'Ingen custom design'}
       </td>
-      <td style="padding: 15px 0; text-align: right; vertical-align: top;">
-        <p style="margin: 0; font-weight: bold; color: #FF6600;">${formatCurrency(item.price * item.quantity)}</p>
+      <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">
+        ${formatCurrency(item.price)} × ${item.quantity}<br>
+        <strong>${formatCurrency(item.price * item.quantity)}</strong>
       </td>
     </tr>
   `).join('');
@@ -79,17 +78,52 @@ function generateCustomerEmailHTML(orderData: OrderData, orderId: string): strin
     <html>
     <head>
       <meta charset="utf-8">
-      <title>Ordrebekræftelse - ${orderId}</title>
+      <title>Ny ordre modtaget - ${orderId}</title>
     </head>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-      <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #FF6600; margin-bottom: 10px;">Tak for din bestilling!</h1>
-        <p style="font-size: 18px; color: #666;">Ordre ID: <strong>${orderId}</strong></p>
+      <div style="background-color: #FF6600; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 30px;">
+        <h1 style="margin: 0;">🎉 Tak for din bestilling!</h1>
+        <p style="margin: 10px 0 0 0; font-size: 18px;">Ordre ID: <strong>${orderId}</strong></p>
+      </div>
+
+      <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+        <h2 style="color: #333; margin-top: 0;">Kundeoplysninger</h2>
+        <table style="width: 100%;">
+          <tr>
+            <td style="padding: 5px 0; font-weight: bold;">Navn:</td>
+            <td style="padding: 5px 0;">${orderData.customerInfo.firstName} ${orderData.customerInfo.lastName}</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px 0; font-weight: bold;">Email:</td>
+            <td style="padding: 5px 0;">${orderData.customerInfo.email}</td>
+          </tr>
+          ${orderData.customerInfo.phone ? `
+          <tr>
+            <td style="padding: 5px 0; font-weight: bold;">Telefon:</td>
+            <td style="padding: 5px 0;">${orderData.customerInfo.phone}</td>
+          </tr>
+          ` : ''}
+          <tr>
+            <td style="padding: 5px 0; font-weight: bold;">Adresse:</td>
+            <td style="padding: 5px 0;">
+              ${orderData.customerInfo.address}<br>
+              ${orderData.customerInfo.postalCode} ${orderData.customerInfo.city}<br>
+              ${orderData.customerInfo.country}
+            </td>
+          </tr>
+        </table>
       </div>
 
       <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
-        <h2 style="color: #333; margin-top: 0;">Ordredetaljer</h2>
+        <h2 style="color: #333; margin-top: 0;">Bestilte produkter</h2>
         <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="background-color: #e9ecef;">
+              <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Produkt detaljer</th>
+              <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Pris</th>
+            </tr>
+          </thead>
+          <tbody>
           ${itemsHTML}
         </table>
       </div>
@@ -130,7 +164,7 @@ function generateCustomerEmailHTML(orderData: OrderData, orderId: string): strin
 
       <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
         <p style="color: #666; font-size: 14px;">
-          Har du spørgsmål til din ordre?<br>
+          Denne email blev automatisk genereret fra din Nyhavn Print-on-Demand hjemmeside.
           Kontakt os på <a href="mailto:nyhavnprintondemand@gmail.com" style="color: #FF6600;">nyhavnprintondemand@gmail.com</a><br>
           eller ring til +45 53 69 07 86
         </p>
@@ -152,7 +186,10 @@ function generateBusinessEmailHTML(orderData: OrderData, orderId: string): strin
         Størrelse: ${item.size}<br>
         Farve: ${item.color}<br>
         Antal: ${item.quantity}<br>
-        ${item.artwork ? '<span style="color: #FF6600;">✓ Custom design</span>' : 'Ingen custom design'}
+        ${item.artwork ? `
+          <span style="color: #FF6600;">✓ Custom design</span><br>
+          <img src="${item.artwork}" alt="Custom design" style="max-width: 150px; max-height: 150px; margin-top: 10px; border-radius: 8px; border: 1px solid #ddd;">
+        ` : 'Ingen custom design'}
       </td>
       <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">
         ${formatCurrency(item.price)} × ${item.quantity}<br>
@@ -214,6 +251,7 @@ function generateBusinessEmailHTML(orderData: OrderData, orderId: string): strin
           <tbody>
             ${itemsHTML}
           </tbody>
+          </tbody>
         </table>
       </div>
 
@@ -232,6 +270,10 @@ function generateBusinessEmailHTML(orderData: OrderData, orderId: string): strin
             <td style="padding: 5px 0;">Betalingsmetode:</td>
             <td style="text-align: right; padding: 5px 0;">${orderData.paymentMethod}</td>
           </tr>
+          <tr>
+            <td style="padding: 5px 0;">Betalingsmetode:</td>
+            <td style="text-align: right; padding: 5px 0;">${orderData.paymentMethod}</td>
+          </tr>
           <tr style="border-top: 2px solid #FF6600; font-weight: bold; font-size: 18px;">
             <td style="padding: 10px 0;">Total:</td>
             <td style="text-align: right; padding: 10px 0; color: #FF6600;">${formatCurrency(orderData.totalAmount)}</td>
@@ -240,19 +282,12 @@ function generateBusinessEmailHTML(orderData: OrderData, orderId: string): strin
       </div>
 
       <div style="background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px; border-radius: 8px;">
-        <h3 style="margin-top: 0;">Næste skridt:</h3>
+        <h3 style="margin-top: 0;">Hvad sker der nu?</h3>
         <ul style="margin: 10px 0;">
-          <li>Bekræft ordren i dit system</li>
-          <li>Start produktion af de bestilte varer</li>
-          <li>Send tracking information til kunden når ordren er afsendt</li>
+          <li>Vi begynder at producere dit custom tøj med det samme</li>
+          <li>Forventet leveringstid: 2-4 hverdage</li>
+          <li>Du vil modtage tracking information når ordren er afsendt</li>
         </ul>
-      </div>
-
-      <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-        <p style="color: #666; font-size: 14px;">
-          Denne email blev automatisk genereret fra din Nyhavn Print-on-Demand hjemmeside.
-        </p>
-      </div>
     </body>
     </html>
   `;

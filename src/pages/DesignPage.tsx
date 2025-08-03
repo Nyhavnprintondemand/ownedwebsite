@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import { Upload, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL!,
+  import.meta.env.VITE_SUPABASE_ANON_KEY!
+);
 
 const DesignPage: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<'tshirt' | 'hoodie'>('tshirt');
@@ -10,6 +17,7 @@ const DesignPage: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
   
   const { addItem } = useCart();
   const navigate = useNavigate();
@@ -44,7 +52,54 @@ const DesignPage: React.FC = () => {
     }
   };
 
-  const handleAddToCart = () => {
+  const uploadArtworkToStorage = async (file: File): Promise<string | null> => {
+    try {
+      setIsUploading(true);
+      
+      // Generate unique filename
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const filePath = `artwork/${fileName}`;
+
+      // Upload file to Supabase Storage
+      const { data, error } = await supabase.storage
+        .from('order-artwork')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) {
+        console.error('Error uploading file:', error);
+        return null;
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('order-artwork')
+        .getPublicUrl(filePath);
+
+      return publicUrl;
+    } catch (error) {
+      console.error('Error in uploadArtworkToStorage:', error);
+      return null;
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleAddToCart = async () => {
+    let artworkUrl: string | undefined = undefined;
+
+    // Upload artwork if file is selected
+    if (uploadedFile) {
+      artworkUrl = await uploadArtworkToStorage(uploadedFile);
+      if (!artworkUrl) {
+        alert('Der opstod en fejl ved upload af dit design. Prøv igen.');
+        return;
+      }
+    }
+
     const item = {
       id: selectedProduct,
       name: currentProduct.name,
@@ -53,7 +108,7 @@ const DesignPage: React.FC = () => {
       quantity,
       price: currentProduct.price,
       image: currentProduct.image,
-      artwork: filePreview || undefined
+      artwork: artworkUrl
     };
 
     addItem(item);
@@ -212,9 +267,17 @@ const DesignPage: React.FC = () => {
               </div>
               <button
                 onClick={handleAddToCart}
-                className="w-full bg-accent-orange text-white py-4 rounded-xl font-semibold hover:bg-accent-orange-dark transition-colors"
+                disabled={isUploading}
+                className="w-full bg-accent-orange text-white py-4 rounded-xl font-semibold hover:bg-accent-orange-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
               >
-                Læg i kurv
+                {isUploading ? (
+                  <>
+                    <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Uploader design...
+                  </>
+                ) : (
+                  'Læg i kurv'
+                )}
               </button>
             </div>
           </div>
