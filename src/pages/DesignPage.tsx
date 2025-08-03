@@ -4,10 +4,16 @@ import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
+// Initialize Supabase client with anon key for general use
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL!,
   import.meta.env.VITE_SUPABASE_ANON_KEY!
+);
+
+// Initialize Supabase client with service role for file uploads
+const supabaseServiceRole = createClient(
+  import.meta.env.VITE_SUPABASE_URL!,
+  import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY!
 );
 
 const DesignPage: React.FC = () => {
@@ -62,7 +68,7 @@ const DesignPage: React.FC = () => {
       const filePath = `artwork/${fileName}`;
 
       // Upload file to Supabase Storage
-      const { data, error } = await supabase.storage
+      const { data, error } = await supabaseServiceRole.storage
         .from('order-artwork')
         .upload(filePath, file, {
           cacheControl: '3600',
@@ -75,7 +81,7 @@ const DesignPage: React.FC = () => {
       }
 
       // Get public URL
-      const { data: { publicUrl } } = supabase.storage
+      const { data: { publicUrl } } = supabaseServiceRole.storage
         .from('order-artwork')
         .getPublicUrl(filePath);
 
