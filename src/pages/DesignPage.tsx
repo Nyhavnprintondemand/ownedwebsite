@@ -5,16 +5,19 @@ import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client with anon key for general use
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL!,
-  import.meta.env.VITE_SUPABASE_ANON_KEY!
-);
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseServiceKey = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Missing Supabase environment variables. Please check your .env file.');
+}
+
+// Initialize Supabase client with anon key for general use
+const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
 
 // Initialize Supabase client with service role for file uploads
-const supabaseServiceRole = createClient(
-  import.meta.env.VITE_SUPABASE_URL!,
-  import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY!
-);
+const supabaseServiceRole = supabaseUrl && supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey) : null;
 
 const DesignPage: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<'tshirt' | 'hoodie'>('tshirt');
@@ -61,6 +64,11 @@ const DesignPage: React.FC = () => {
   const uploadArtworkToStorage = async (file: File): Promise<string | null> => {
     try {
       setIsUploading(true);
+      
+      if (!supabaseServiceRole) {
+        console.error('Supabase service role client not initialized. Please check your environment variables.');
+        return null;
+      }
       
       // Generate unique filename
       const fileExt = file.name.split('.').pop();
