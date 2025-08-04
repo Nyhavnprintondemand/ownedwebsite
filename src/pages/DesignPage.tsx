@@ -135,18 +135,21 @@ const DesignPage: React.FC = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 animate-fade-in-up">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-playfair">
-            Design dit eget tøj
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
+            <span className="gradient-text">Design dit eget tøj</span>
           </h1>
           <p className="text-xl text-gray-600">
             Vælg produkt, upload dit design og se det live
           </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-accent-orange-light mx-auto mt-6 rounded-full"></div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Configuration */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 hover-lift animate-fade-in-up animate-delay-100">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6">Konfiguration</h2>
+          <div className="premium-card rounded-2xl p-8 animate-fade-in-up animate-delay-100">
+            <h2 className="text-2xl font-semibold mb-6">
+              <span className="gradient-text">Konfiguration</span>
+            </h2>
 
             {/* Product Selection */}
             <div className="mb-8">
@@ -154,36 +157,36 @@ const DesignPage: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <button
                   onClick={() => setSelectedProduct('tshirt')}
-                  className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 active:scale-95 ${
+                  className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
                     selectedProduct === 'tshirt'
-                      ? 'border-accent-orange bg-accent-orange-light bg-opacity-10'
+                      ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
                   <img
                     src={products.tshirt.image}
                     alt="T-shirt"
-                    className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300"
+                    className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300 group-hover:scale-110"
                   />
-                  <p className="font-medium">T-shirt</p>
-                  <p className="text-accent-orange font-bold">{products.tshirt.price} kr</p>
+                  <p className="font-medium group-hover:text-accent-orange transition-colors duration-300">T-shirt</p>
+                  <p className="gradient-text font-bold">{products.tshirt.price} kr</p>
                 </button>
                 
                 <button
                   onClick={() => setSelectedProduct('hoodie')}
-                  className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 active:scale-95 ${
+                  className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
                     selectedProduct === 'hoodie'
-                      ? 'border-accent-orange bg-accent-orange-light bg-opacity-10'
+                      ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
                   <img
                     src={products.hoodie.image}
                     alt="Hoodie"
-                    className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300"
+                    className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300 group-hover:scale-110"
                   />
-                  <p className="font-medium">Hoodie</p>
-                  <p className="text-accent-orange font-bold">{products.hoodie.price} kr</p>
+                  <p className="font-medium group-hover:text-accent-orange transition-colors duration-300">Hoodie</p>
+                  <p className="gradient-text font-bold">{products.hoodie.price} kr</p>
                 </button>
               </div>
             </div>
@@ -196,9 +199,9 @@ const DesignPage: React.FC = () => {
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`py-2 px-4 rounded-lg border font-medium transition-all duration-300 hover:scale-105 active:scale-95 ${
+                    className={`py-2 px-4 rounded-lg border font-medium transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 ${
                       selectedSize === size
-                        ? 'border-accent-orange bg-accent-orange text-white'
+                        ? 'border-accent-orange bg-gradient-to-r from-accent-orange to-accent-orange-light text-white animate-pulse-glow'
                         : 'border-gray-300 hover:border-gray-400'
                     }`}
                   >
@@ -216,17 +219,17 @@ const DesignPage: React.FC = () => {
                   <button
                     key={color.name}
                     onClick={() => setSelectedColor(color.name)}
-                    className={`p-3 rounded-lg border-2 flex items-center space-x-2 transition-all duration-300 hover:scale-105 active:scale-95 ${
+                    className={`p-3 rounded-lg border-2 flex items-center space-x-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
                       selectedColor === color.name
-                        ? 'border-accent-orange bg-accent-orange-light bg-opacity-10'
+                        ? 'border-accent-orange bg-gradient-to-r from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
                     <div
-                      className="w-4 h-4 rounded-full border border-gray-300"
+                      className="w-4 h-4 rounded-full border border-gray-300 group-hover:scale-110 transition-transform duration-300"
                       style={{ backgroundColor: color.hex }}
                     ></div>
-                    <span className="text-sm font-medium">{color.label}</span>
+                    <span className="text-sm font-medium group-hover:text-accent-orange transition-colors duration-300">{color.label}</span>
                   </button>
                 ))}
               </div>
@@ -242,12 +245,12 @@ const DesignPage: React.FC = () => {
                   onChange={handleFileUpload}
                   className="sr-only"
                 />
-                <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-accent-orange transition-all duration-300 cursor-pointer hover:scale-[1.01] hover:bg-gray-50">
-                  <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-accent-orange transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:bg-gradient-to-br hover:from-gray-50 hover:to-accent-orange-light hover:bg-opacity-5 group">
+                  <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4 group-hover:text-accent-orange group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
                   <p className="text-gray-600 mb-2">
                     {uploadedFile ? uploadedFile.name : 'Klik for at uploade dit design'}
                   </p>
-                  <p className="text-sm text-gray-400">PNG, JPG eller SVG (max 10MB)</p>
+                  <p className="text-sm text-gray-400 group-hover:text-accent-orange transition-colors duration-300">PNG, JPG eller SVG (max 10MB)</p>
                 </div>
               </label>
             </div>
@@ -258,15 +261,15 @@ const DesignPage: React.FC = () => {
               <div className="flex items-center space-x-4">
                 <button
                   onClick={() => quantity > 1 && setQuantity(quantity - 1)}
-                  className="p-2 rounded-lg border border-gray-300 hover:border-gray-400 transition-all duration-300 hover:scale-110 active:scale-95"
+                  className="p-2 rounded-lg border border-gray-300 hover:border-accent-orange hover:bg-accent-orange hover:text-white transition-all duration-300 hover:scale-110 active:scale-95"
                   disabled={quantity <= 1}
                 >
                   <Minus className="w-4 h-4" />
                 </button>
-                <span className="text-xl font-semibold px-4">{quantity}</span>
+                <span className="text-xl font-semibold px-4 gradient-text">{quantity}</span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="p-2 rounded-lg border border-gray-300 hover:border-gray-400 transition-all duration-300 hover:scale-110 active:scale-95"
+                  className="p-2 rounded-lg border border-gray-300 hover:border-accent-orange hover:bg-accent-orange hover:text-white transition-all duration-300 hover:scale-110 active:scale-95"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -277,12 +280,12 @@ const DesignPage: React.FC = () => {
             <div className="border-t pt-6">
               <div className="flex justify-between items-center mb-4">
                 <span className="text-lg font-medium">Total:</span>
-                <span className="text-2xl font-bold text-accent-orange">{totalPrice} kr</span>
+                <span className="text-2xl font-bold gradient-text">{totalPrice} kr</span>
               </div>
               <button
                 onClick={handleAddToCart}
                 disabled={isUploading}
-                className="w-full bg-accent-orange text-white py-4 rounded-xl font-semibold hover:bg-accent-orange-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transform hover:scale-105 active:scale-95 hover-glow"
+                className="btn-primary magnetic-btn w-full text-white py-4 rounded-xl font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transform hover:scale-105 active:scale-95 group"
               >
                 {isUploading ? (
                   <>
@@ -290,38 +293,48 @@ const DesignPage: React.FC = () => {
                     Uploader design...
                   </>
                 ) : (
-                  'Læg i kurv'
+                  <>
+                    Læg i kurv
+                    <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
+                      →
+                    </div>
+                  </>
                 )}
               </button>
             </div>
           </div>
 
           {/* Product Preview */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 hover-lift animate-fade-in-up animate-delay-200">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6">Preview</h2>
-            <div className="relative">
+          <div className="premium-card rounded-2xl p-8 animate-fade-in-up animate-delay-200">
+            <h2 className="text-2xl font-semibold mb-6">
+              <span className="gradient-text">Preview</span>
+            </h2>
+            <div className="relative hover-tilt">
               <img
                 src={currentProduct.image}
                 alt={`${currentProduct.name} preview`}
-                className="w-full max-w-md mx-auto rounded-lg transition-transform duration-300"
+                className="w-full max-w-md mx-auto rounded-lg transition-transform duration-300 hover:scale-105"
               />
               {filePreview && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-fade-in">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-fade-in animate-bounce-in">
                   <img
                     src={filePreview}
                     alt="Uploaded design"
-                    className="max-w-32 max-h-32 object-contain opacity-80"
+                    className="max-w-32 max-h-32 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>
               )}
+              {/* Decorative elements */}
+              <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent-orange opacity-30 rounded-full animate-pulse-soft"></div>
+              <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-accent-orange-light opacity-20 rounded-full animate-bounce-gentle"></div>
             </div>
             <div className="mt-6 text-center">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-gray-900 hover:text-accent-orange transition-colors duration-300">
                 {currentProduct.name} - {colors.find(c => c.name === selectedColor)?.label}
               </h3>
               <p className="text-gray-600">Størrelse: {selectedSize}</p>
               <p className="text-gray-600">Antal: {quantity}</p>
-              <p className="text-accent-orange font-bold text-xl mt-2">{totalPrice} kr</p>
+              <p className="gradient-text font-bold text-xl mt-2">{totalPrice} kr</p>
             </div>
           </div>
         </div>
