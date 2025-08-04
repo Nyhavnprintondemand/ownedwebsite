@@ -134,7 +134,7 @@ const DesignPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-fade-in-up">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-playfair">
             Design dit eget tøj
           </h1>
@@ -145,7 +145,7 @@ const DesignPage: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Configuration */}
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-white rounded-2xl shadow-lg p-8 hover-lift animate-fade-in-up animate-delay-100">
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">Konfiguration</h2>
 
             {/* Product Selection */}
@@ -154,7 +154,7 @@ const DesignPage: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <button
                   onClick={() => setSelectedProduct('tshirt')}
-                  className={`p-4 rounded-xl border-2 transition-all ${
+                  className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 active:scale-95 ${
                     selectedProduct === 'tshirt'
                       ? 'border-accent-orange bg-accent-orange-light bg-opacity-10'
                       : 'border-gray-200 hover:border-gray-300'
@@ -163,7 +163,7 @@ const DesignPage: React.FC = () => {
                   <img
                     src={products.tshirt.image}
                     alt="T-shirt"
-                    className="w-full h-32 object-cover rounded-lg mb-2"
+                    className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300"
                   />
                   <p className="font-medium">T-shirt</p>
                   <p className="text-accent-orange font-bold">{products.tshirt.price} kr</p>
@@ -171,7 +171,7 @@ const DesignPage: React.FC = () => {
                 
                 <button
                   onClick={() => setSelectedProduct('hoodie')}
-                  className={`p-4 rounded-xl border-2 transition-all ${
+                  className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 active:scale-95 ${
                     selectedProduct === 'hoodie'
                       ? 'border-accent-orange bg-accent-orange-light bg-opacity-10'
                       : 'border-gray-200 hover:border-gray-300'
@@ -180,7 +180,7 @@ const DesignPage: React.FC = () => {
                   <img
                     src={products.hoodie.image}
                     alt="Hoodie"
-                    className="w-full h-32 object-cover rounded-lg mb-2"
+                    className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300"
                   />
                   <p className="font-medium">Hoodie</p>
                   <p className="text-accent-orange font-bold">{products.hoodie.price} kr</p>
@@ -196,7 +196,7 @@ const DesignPage: React.FC = () => {
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`py-2 px-4 rounded-lg border font-medium transition-all ${
+                    className={`py-2 px-4 rounded-lg border font-medium transition-all duration-300 hover:scale-105 active:scale-95 ${
                       selectedSize === size
                         ? 'border-accent-orange bg-accent-orange text-white'
                         : 'border-gray-300 hover:border-gray-400'
@@ -216,7 +216,7 @@ const DesignPage: React.FC = () => {
                   <button
                     key={color.name}
                     onClick={() => setSelectedColor(color.name)}
-                    className={`p-3 rounded-lg border-2 flex items-center space-x-2 transition-all ${
+                    className={`p-3 rounded-lg border-2 flex items-center space-x-2 transition-all duration-300 hover:scale-105 active:scale-95 ${
                       selectedColor === color.name
                         ? 'border-accent-orange bg-accent-orange-light bg-opacity-10'
                         : 'border-gray-200 hover:border-gray-300'
@@ -242,7 +242,7 @@ const DesignPage: React.FC = () => {
                   onChange={handleFileUpload}
                   className="sr-only"
                 />
-                <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-accent-orange transition-colors cursor-pointer">
+                <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-accent-orange transition-all duration-300 cursor-pointer hover:scale-[1.01] hover:bg-gray-50">
                   <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                   <p className="text-gray-600 mb-2">
                     {uploadedFile ? uploadedFile.name : 'Klik for at uploade dit design'}
@@ -258,7 +258,7 @@ const DesignPage: React.FC = () => {
               <div className="flex items-center space-x-4">
                 <button
                   onClick={() => quantity > 1 && setQuantity(quantity - 1)}
-                  className="p-2 rounded-lg border border-gray-300 hover:border-gray-400 transition-colors"
+                  className="p-2 rounded-lg border border-gray-300 hover:border-gray-400 transition-all duration-300 hover:scale-110 active:scale-95"
                   disabled={quantity <= 1}
                 >
                   <Minus className="w-4 h-4" />
@@ -266,7 +266,7 @@ const DesignPage: React.FC = () => {
                 <span className="text-xl font-semibold px-4">{quantity}</span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="p-2 rounded-lg border border-gray-300 hover:border-gray-400 transition-colors"
+                  className="p-2 rounded-lg border border-gray-300 hover:border-gray-400 transition-all duration-300 hover:scale-110 active:scale-95"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -282,7 +282,7 @@ const DesignPage: React.FC = () => {
               <button
                 onClick={handleAddToCart}
                 disabled={isUploading}
-                className="w-full bg-accent-orange text-white py-4 rounded-xl font-semibold hover:bg-accent-orange-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                className="w-full bg-accent-orange text-white py-4 rounded-xl font-semibold hover:bg-accent-orange-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transform hover:scale-105 active:scale-95 hover-glow"
               >
                 {isUploading ? (
                   <>
@@ -297,16 +297,16 @@ const DesignPage: React.FC = () => {
           </div>
 
           {/* Product Preview */}
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-white rounded-2xl shadow-lg p-8 hover-lift animate-fade-in-up animate-delay-200">
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">Preview</h2>
             <div className="relative">
               <img
                 src={currentProduct.image}
                 alt={`${currentProduct.name} preview`}
-                className="w-full max-w-md mx-auto rounded-lg"
+                className="w-full max-w-md mx-auto rounded-lg transition-transform duration-300"
               />
               {filePreview && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-fade-in">
                   <img
                     src={filePreview}
                     alt="Uploaded design"

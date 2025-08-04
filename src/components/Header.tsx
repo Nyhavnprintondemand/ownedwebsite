@@ -37,7 +37,7 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`px-3 py-2 text-sm font-medium transition-colors ${
+                className={`px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 ${
                   location.pathname === item.href
                     ? 'text-accent-orange border-b-2 border-accent-orange'
                     : 'text-gray-700 hover:text-accent-orange'
@@ -50,17 +50,17 @@ const Header: React.FC = () => {
 
           {/* Actions */}
           <div className="flex items-center space-x-4">
-            <button className="p-2 text-gray-700 hover:text-accent-orange transition-colors">
+            <button className="p-2 text-gray-700 hover:text-accent-orange transition-all duration-300 hover:scale-110 active:scale-95">
               <User className="w-5 h-5" />
             </button>
             
             <button 
               onClick={() => setIsCartOpen(true)}
-              className="p-2 text-gray-700 hover:text-accent-orange transition-colors relative"
+              className="p-2 text-gray-700 hover:text-accent-orange transition-all duration-300 relative hover:scale-110 active:scale-95"
             >
               <ShoppingCart className="w-5 h-5" />
               {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-accent-orange text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-accent-orange text-white text-xs rounded-full w-5 h-5 flex items-center justify-center animate-bounce-in">
                   {itemCount}
                 </span>
               )}
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-gray-700 hover:text-accent-orange transition-colors"
+              className="md:hidden p-2 text-gray-700 hover:text-accent-orange transition-all duration-300 hover:scale-110 active:scale-95"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -78,13 +78,13 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100">
+          <div className="md:hidden py-4 border-t border-gray-100 animate-fade-in-up">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block px-3 py-2 text-base font-medium transition-colors ${
+                className={`block px-3 py-2 text-base font-medium transition-all duration-300 hover:scale-105 ${
                   location.pathname === item.href
                     ? 'text-accent-orange'
                     : 'text-gray-700 hover:text-accent-orange'

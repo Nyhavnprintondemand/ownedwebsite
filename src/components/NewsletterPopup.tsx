@@ -25,19 +25,19 @@ const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-      <div className="bg-white rounded-2xl shadow-xl max-w-md w-full relative overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 animate-fade-in">
+      <div className="bg-white rounded-2xl shadow-xl max-w-md w-full relative overflow-hidden animate-scale-in">
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors z-10"
+          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-all duration-300 z-10 hover:scale-110 active:scale-95"
         >
           <X className="w-5 h-5" />
         </button>
 
         {!isSubmitted ? (
-          <div className="p-8">
+          <div className="p-8 animate-fade-in-up">
             <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-in">
                 <Gift className="w-8 h-8 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-2 font-playfair">
@@ -61,14 +61,14 @@ const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ onClose }) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="din@email.dk"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent transition-all duration-300"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-accent-orange text-white font-semibold py-3 rounded-lg hover:bg-accent-orange-dark transition-colors"
+                className="w-full bg-accent-orange text-white font-semibold py-3 rounded-lg hover:bg-accent-orange-dark transition-all duration-300 transform hover:scale-105 active:scale-95 hover-glow"
               >
                 Få min rabatkode
               </button>
@@ -79,8 +79,8 @@ const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ onClose }) => {
             </p>
           </div>
         ) : (
-          <div className="p-8 text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="p-8 text-center animate-fade-in-up">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-in">
               <Gift className="w-8 h-8 text-green-600" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2 font-playfair">
@@ -89,7 +89,7 @@ const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ onClose }) => {
             <p className="text-gray-600 mb-4">
               Du vil modtage din rabatkode på email inden for få minutter.
             </p>
-            <div className="bg-accent-orange-light bg-opacity-20 rounded-lg p-4">
+            <div className="bg-accent-orange-light bg-opacity-20 rounded-lg p-4 hover-lift">
               <p className="text-accent-orange font-bold text-lg">
                 Rabatkode: VELKOMMEN10
               </p>

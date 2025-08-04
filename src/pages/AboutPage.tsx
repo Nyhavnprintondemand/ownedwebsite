@@ -6,7 +6,7 @@ const AboutPage: React.FC = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in-up">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-playfair">
             Om <span className="text-accent-orange">Nyhavn Print on Demand</span>
           </h1>
@@ -18,7 +18,7 @@ const AboutPage: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           {/* Company Story */}
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-white rounded-2xl shadow-lg p-8 hover-lift animate-fade-in-up animate-delay-100">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 font-playfair">Vores historie</h2>
             <p className="text-gray-600 mb-4">
               Nyhavn Print on Demand blev grundlagt med en simpel vision: at gøre det nemt og overkommeligt 
@@ -37,7 +37,7 @@ const AboutPage: React.FC = () => {
           </div>
 
           {/* Location & Contact Info */}
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-white rounded-2xl shadow-lg p-8 hover-lift animate-fade-in-up animate-delay-200">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 font-playfair">Find os</h2>
             <div className="space-y-4">
               <div className="flex items-start space-x-3">
@@ -60,7 +60,7 @@ const AboutPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-8 p-4 bg-accent-orange-light bg-opacity-10 rounded-lg">
+            <div className="mt-8 p-4 bg-accent-orange-light bg-opacity-10 rounded-lg hover-lift transition-all duration-300">
               <p className="text-sm text-gray-600">
                 <strong>Bemærk:</strong> Vi er primært et online firma. Kontakt os venligst på forhånd 
                 hvis du ønsker at besøge vores lokation.
@@ -70,14 +70,14 @@ const AboutPage: React.FC = () => {
         </div>
 
         {/* Values Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
+        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16 hover-lift animate-fade-in-up animate-delay-300">
           <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center font-playfair">
             Vores værdier
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent-orange rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center animate-fade-in-up animate-delay-100">
+              <div className="w-16 h-16 bg-accent-orange rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform duration-300">
                 <Award className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Kvalitet først</h3>
@@ -86,8 +86,8 @@ const AboutPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent-orange rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center animate-fade-in-up animate-delay-200">
+              <div className="w-16 h-16 bg-accent-orange rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform duration-300">
                 <Heart className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Kundetilfredshed</h3>
@@ -96,8 +96,8 @@ const AboutPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent-orange rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center animate-fade-in-up animate-delay-300">
+              <div className="w-16 h-16 bg-accent-orange rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform duration-300">
                 <Shield className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Pålidelighed</h3>
@@ -109,14 +109,14 @@ const AboutPage: React.FC = () => {
         </div>
 
         {/* Team Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
+        <div className="bg-white rounded-2xl shadow-lg p-8 mb-16 hover-lift animate-fade-in-up animate-delay-400">
           <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center font-playfair">
             Mød teamet
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-24 h-24 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center animate-fade-in-up animate-delay-100">
+              <div className="w-24 h-24 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform duration-300">
                 <Users className="w-12 h-12 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Design Team</h3>
@@ -125,8 +125,8 @@ const AboutPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-24 h-24 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center animate-fade-in-up animate-delay-200">
+              <div className="w-24 h-24 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform duration-300">
                 <Award className="w-12 h-12 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Produktion</h3>
@@ -135,8 +135,8 @@ const AboutPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-24 h-24 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center animate-fade-in-up animate-delay-300">
+              <div className="w-24 h-24 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform duration-300">
                 <Heart className="w-12 h-12 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Kundeservice</h3>
@@ -148,27 +148,27 @@ const AboutPage: React.FC = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-          <div className="text-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 animate-fade-in-up animate-delay-500">
+          <div className="text-center hover-lift">
             <div className="text-3xl font-bold text-accent-orange mb-2">1000+</div>
             <p className="text-gray-600">Tilfredse kunder</p>
           </div>
-          <div className="text-center">
+          <div className="text-center hover-lift">
             <div className="text-3xl font-bold text-accent-orange mb-2">5000+</div>
             <p className="text-gray-600">Produkter leveret</p>
           </div>
-          <div className="text-center">
+          <div className="text-center hover-lift">
             <div className="text-3xl font-bold text-accent-orange mb-2">2-4</div>
             <p className="text-gray-600">Dages levering</p>
           </div>
-          <div className="text-center">
+          <div className="text-center hover-lift">
             <div className="text-3xl font-bold text-accent-orange mb-2">4.8★</div>
             <p className="text-gray-600">Gennemsnitlig rating</p>
           </div>
         </div>
 
         {/* CTA Section */}
-        <div className="bg-accent-orange rounded-2xl p-8 text-center text-white">
+        <div className="bg-accent-orange rounded-2xl p-8 text-center text-white hover-lift animate-fade-in-up animate-delay-600">
           <h2 className="text-2xl font-bold mb-4 font-playfair">
             Klar til at starte dit projekt?
           </h2>
@@ -178,13 +178,13 @@ const AboutPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/design"
-              className="inline-flex items-center px-6 py-3 bg-white text-accent-orange font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-white text-accent-orange font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 active:scale-95"
             >
               Design selv
             </a>
             <a
               href="/kontakt"
-              className="inline-flex items-center px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-accent-orange transition-colors"
+              className="inline-flex items-center px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-accent-orange transition-all duration-300 transform hover:scale-105 active:scale-95"
             >
               Kontakt os
             </a>
