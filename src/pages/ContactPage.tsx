@@ -73,60 +73,67 @@ const ContactPage: React.FC = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in-up relative">
+          {/* Floating background elements */}
+          <div className="absolute top-10 left-10 w-24 h-24 bg-accent-orange opacity-5 rounded-full blur-xl float-element"></div>
+          <div className="absolute top-20 right-20 w-16 h-16 bg-accent-orange-light opacity-10 rounded-full blur-lg float-element"></div>
+          
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-playfair">
-            Kontakt <span className="text-accent-orange">os</span>
+            Kontakt <span className="gradient-text">os</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Har du spørgsmål eller brug for hjælp? Vi er her for at hjælpe dig med dit næste projekt.
           </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-accent-orange-light mx-auto mt-6 rounded-full"></div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-8 font-playfair">Kom i kontakt</h2>
+          <div className="animate-fade-in-up animate-delay-100">
+            <h2 className="text-2xl font-bold text-gray-900 mb-8 font-playfair">
+              <span className="gradient-text">Kom i kontakt</span>
+            </h2>
             
             <div className="space-y-6 mb-8">
-              <div className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                <div className="w-12 h-12 bg-accent-orange rounded-lg flex items-center justify-center">
+              <div className="flex items-start space-x-4 p-4 premium-card rounded-xl hover-lift group animate-fade-in-up animate-delay-200">
+                <div className="w-12 h-12 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <Phone className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Telefon</h3>
+                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">Telefon</h3>
                   <p className="text-gray-600">+45 53 69 07 86</p>
                   <p className="text-sm text-gray-500">Mandag - Fredag: 9:00 - 17:00</p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                <div className="w-12 h-12 bg-accent-orange rounded-lg flex items-center justify-center">
+              <div className="flex items-start space-x-4 p-4 premium-card rounded-xl hover-lift group animate-fade-in-up animate-delay-300">
+                <div className="w-12 h-12 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <Mail className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
+                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">Email</h3>
                   <p className="text-gray-600">nyhavnprintondemand@gmail.com</p>
                   <p className="text-sm text-gray-500">Vi svarer inden for 24 timer</p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                <div className="w-12 h-12 bg-accent-orange rounded-lg flex items-center justify-center">
+              <div className="flex items-start space-x-4 p-4 premium-card rounded-xl hover-lift group animate-fade-in-up animate-delay-400">
+                <div className="w-12 h-12 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <MapPin className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Adresse</h3>
+                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">Adresse</h3>
                   <p className="text-gray-600">Nyhavn 44<br />1051 København</p>
                   <p className="text-sm text-gray-500">Besøg efter aftale</p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                <div className="w-12 h-12 bg-accent-orange rounded-lg flex items-center justify-center">
+              <div className="flex items-start space-x-4 p-4 premium-card rounded-xl hover-lift group animate-fade-in-up animate-delay-500">
+                <div className="w-12 h-12 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <Clock className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Åbningstider</h3>
+                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">Åbningstider</h3>
                   <p className="text-gray-600">
                     Mandag - Fredag: 9:00 - 17:00<br />
                     Weekend: Lukket
@@ -136,13 +143,13 @@ const ContactPage: React.FC = () => {
             </div>
 
             {/* FAQ Section */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <HelpCircle className="w-5 h-5 text-accent-orange mr-2" />
+            <div className="premium-card rounded-xl p-6 hover-lift animate-fade-in-up animate-delay-600">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center group">
+                <HelpCircle className="w-5 h-5 text-accent-orange mr-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
                 Ofte stillede spørgsmål
               </h3>
               <div className="space-y-3">
-                <details className="group">
+                <details className="group cursor-pointer">
                   <summary className="cursor-pointer text-gray-700 hover:text-accent-orange transition-colors">
                     Hvor lang tid tager levering?
                   </summary>
@@ -150,7 +157,7 @@ const ContactPage: React.FC = () => {
                     Vi leverer normalt inden for 2-4 hverdage i Danmark.
                   </p>
                 </details>
-                <details className="group">
+                <details className="group cursor-pointer">
                   <summary className="cursor-pointer text-gray-700 hover:text-accent-orange transition-colors">
                     Hvilke filformater accepterer I?
                   </summary>
@@ -158,7 +165,7 @@ const ContactPage: React.FC = () => {
                     Vi accepterer PNG, JPG og SVG filer. For bedste kvalitet anbefaler vi høj opløsning.
                   </p>
                 </details>
-                <details className="group">
+                <details className="group cursor-pointer">
                   <summary className="cursor-pointer text-gray-700 hover:text-accent-orange transition-colors">
                     Kan jeg returnere mit produkt?
                   </summary>
@@ -171,21 +178,25 @@ const ContactPage: React.FC = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 font-playfair">Send os en besked</h2>
+          <div className="premium-card rounded-xl p-8 hover-lift animate-fade-in-up animate-delay-200 relative overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute top-4 right-4 w-16 h-16 bg-accent-orange opacity-5 rounded-full blur-lg float-element"></div>
+            <div className="absolute bottom-4 left-4 w-12 h-12 bg-accent-orange-light opacity-10 rounded-full float-element"></div>
+            
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 font-playfair relative z-10"><span className="gradient-text">Send os en besked</span></h2>
             
             {isSubmitted ? (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="text-center py-8 animate-fade-in-up relative z-10">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-in animate-pulse-glow">
                   <Send className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Tak for din besked!</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 gradient-text">Tak for din besked!</h3>
                 <p className="text-gray-600">Vi vender tilbage til dig inden for 24 timer.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                 {submitError && (
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4 animate-fade-in-up">
                     <p className="text-red-800 text-sm">{submitError}</p>
                   </div>
                 )}
@@ -201,7 +212,7 @@ const ContactPage: React.FC = () => {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent transition-all duration-300 hover:border-accent-orange hover:scale-[1.02]"
                       placeholder="Dit fulde navn"
                     />
                   </div>
@@ -216,7 +227,7 @@ const ContactPage: React.FC = () => {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent transition-all duration-300 hover:border-accent-orange hover:scale-[1.02]"
                       placeholder="din@email.dk"
                     />
                   </div>
@@ -231,7 +242,7 @@ const ContactPage: React.FC = () => {
                     required
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent transition-all duration-300 hover:border-accent-orange hover:scale-[1.02]"
                   >
                     <option value="">Vælg et emne</option>
                     <option value="general">Generel forespørgsel</option>
@@ -253,7 +264,7 @@ const ContactPage: React.FC = () => {
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent transition-all duration-300 hover:border-accent-orange hover:scale-[1.02]"
                     placeholder="Beskriv dit spørgsmål eller din forespørgsel..."
                   />
                 </div>
@@ -261,7 +272,7 @@ const ContactPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-accent-orange text-white font-semibold py-4 rounded-lg hover:bg-accent-orange-dark transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-primary magnetic-btn w-full text-white font-semibold py-4 rounded-lg transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 active:scale-95 group"
                 >
                   {isSubmitting ? (
                     <>
@@ -270,8 +281,11 @@ const ContactPage: React.FC = () => {
                     </>
                   ) : (
                     <>
-                      <Send className="w-5 h-5 mr-2" />
+                      <Send className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
                       Send besked
+                      <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
+                        →
+                      </div>
                     </>
                   )}
                 </button>
@@ -281,21 +295,25 @@ const ContactPage: React.FC = () => {
         </div>
 
         {/* Additional Info */}
-        <div className="mt-16 bg-white rounded-xl shadow-sm p-8">
+        <div className="mt-16 premium-card rounded-xl p-8 hover-lift animate-fade-in-up animate-delay-700 relative overflow-hidden">
+          {/* Background decoration */}
+          <div className="absolute top-6 right-6 w-20 h-20 bg-gradient-to-br from-accent-orange to-accent-orange-light opacity-5 rounded-full blur-2xl float-element"></div>
+          <div className="absolute bottom-6 left-6 w-16 h-16 bg-accent-orange opacity-5 rounded-full blur-lg float-element"></div>
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
-              <MessageCircle className="w-8 h-8 text-accent-orange mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Hurtig respons</h3>
+            <div className="hover-tilt group animate-fade-in-up animate-delay-800">
+              <MessageCircle className="w-8 h-8 text-accent-orange mx-auto mb-3 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow" />
+              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">Hurtig respons</h3>
               <p className="text-gray-600 text-sm">Vi svarer på alle henvendelser inden for 24 timer</p>
             </div>
-            <div>
-              <Phone className="w-8 h-8 text-accent-orange mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Personlig service</h3>
+            <div className="hover-tilt group animate-fade-in-up animate-delay-900">
+              <Phone className="w-8 h-8 text-accent-orange mx-auto mb-3 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow" />
+              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">Personlig service</h3>
               <p className="text-gray-600 text-sm">Ring direkte for øjeblikkelig hjælp og rådgivning</p>
             </div>
-            <div>
-              <Mail className="w-8 h-8 text-accent-orange mx-auto mb-3" />
-              <h3 className="font-semibold text-gray-900 mb-2">Detaljerede svar</h3>
+            <div className="hover-tilt group animate-fade-in-up animate-delay-1000">
+              <Mail className="w-8 h-8 text-accent-orange mx-auto mb-3 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow" />
+              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">Detaljerede svar</h3>
               <p className="text-gray-600 text-sm">Vi giver grundige og hjælpsomme svar på alle spørgsmål</p>
             </div>
           </div>
