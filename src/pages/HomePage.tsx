@@ -43,7 +43,7 @@ const HomePage: React.FC = () => {
                 loading="lazy"
               />
               <div className="absolute -top-4 -right-4 bg-gradient-to-r from-accent-orange to-accent-orange-light text-white px-4 py-2 rounded-full text-sm font-semibold animate-bounce-in animate-delay-500 animate-pulse-glow">
-                Fra 199 kr
+                Fra 299 kr
               </div>
               {/* Decorative elements */}
               <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-accent-orange-light opacity-20 rounded-full blur-lg animate-bounce-gentle"></div>

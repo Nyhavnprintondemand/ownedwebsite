@@ -42,7 +42,7 @@ const DesignPage: React.FC = () => {
   ];
 
   const products = {
-    tshirt: { name: 'T-shirt', price: 199, image: 'https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop' },
+    tshirt: { name: 'T-shirt', price: 299, image: 'https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop' },
     hoodie: { name: 'Hoodie', price: 399, image: 'https://images.pexels.com/photos/7679720/pexels-photo-7679720.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop' }
   };
 
@@ -328,7 +328,7 @@ const DesignPage: React.FC = () => {
                 className="w-full max-w-md mx-auto rounded-lg transition-transform duration-300 hover:scale-105"
               />
               {filePreview && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-fade-in animate-bounce-in">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                   <img
                     src={filePreview}
                     alt="Uploaded design"
