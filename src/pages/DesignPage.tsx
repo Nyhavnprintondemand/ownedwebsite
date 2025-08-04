@@ -159,7 +159,7 @@ const DesignPage: React.FC = () => {
                   onClick={() => setSelectedProduct('tshirt')}
                   className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
                     selectedProduct === 'tshirt'
-                      ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow'
+                      ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow text-white'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
@@ -168,15 +168,19 @@ const DesignPage: React.FC = () => {
                     alt="T-shirt"
                     className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300 group-hover:scale-110"
                   />
-                  <p className="font-medium group-hover:text-accent-orange transition-colors duration-300">T-shirt</p>
-                  <p className="gradient-text font-bold">{products.tshirt.price} kr</p>
+                  <p className={`font-medium transition-colors duration-300 ${
+                    selectedProduct === 'tshirt' ? 'text-white' : 'group-hover:text-accent-orange'
+                  }`}>T-shirt</p>
+                  <p className={`font-bold ${
+                    selectedProduct === 'tshirt' ? 'text-white' : 'gradient-text'
+                  }`}>{products.tshirt.price} kr</p>
                 </button>
                 
                 <button
                   onClick={() => setSelectedProduct('hoodie')}
                   className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
                     selectedProduct === 'hoodie'
-                      ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow'
+                      ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow text-white'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
@@ -185,8 +189,12 @@ const DesignPage: React.FC = () => {
                     alt="Hoodie"
                     className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300 group-hover:scale-110"
                   />
-                  <p className="font-medium group-hover:text-accent-orange transition-colors duration-300">Hoodie</p>
-                  <p className="gradient-text font-bold">{products.hoodie.price} kr</p>
+                  <p className={`font-medium transition-colors duration-300 ${
+                    selectedProduct === 'hoodie' ? 'text-white' : 'group-hover:text-accent-orange'
+                  }`}>Hoodie</p>
+                  <p className={`font-bold ${
+                    selectedProduct === 'hoodie' ? 'text-white' : 'gradient-text'
+                  }`}>{products.hoodie.price} kr</p>
                 </button>
               </div>
             </div>
@@ -229,7 +237,11 @@ const DesignPage: React.FC = () => {
                       className="w-4 h-4 rounded-full border border-gray-300 group-hover:scale-110 transition-transform duration-300"
                       style={{ backgroundColor: color.hex }}
                     ></div>
-                    <span className="text-sm font-medium group-hover:text-accent-orange transition-colors duration-300">{color.label}</span>
+                    <span className={`text-sm font-medium transition-colors duration-300 ${
+                      selectedColor === color.name 
+                        ? 'text-white' 
+                        : 'group-hover:text-accent-orange'
+                    }`}>{color.label}</span>
                   </button>
                 ))}
               </div>
