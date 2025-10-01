@@ -15,11 +15,30 @@ import { CartProvider } from './context/CartContext';
 import './index.css';
 
 // Component to handle scroll to top on route change
-const ScrollToTop: React.FC = () => {
+const ScrollManager: React.FC = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Save current scroll position before route change
+    const currentPath = sessionStorage.getItem('currentPath');
+    if (currentPath && currentPath !== pathname) {
+      sessionStorage.setItem(`scrollPos_${currentPath}`, window.scrollY.toString());
+    }
+    
+    // Restore scroll position for the new route or scroll to top
+    const savedScrollPos = sessionStorage.getItem(`scrollPos_${pathname}`);
+    if (savedScrollPos) {
+      // Restore previous scroll position
+      setTimeout(() => {
+        window.scrollTo({ top: parseInt(savedScrollPos), behavior: 'instant' });
+      }, 50);
+    } else {
+      // Scroll to top for new pages
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    
+    // Update current path
+    sessionStorage.setItem('currentPath', pathname);
   }, [pathname]);
 
   return null;
@@ -44,7 +63,7 @@ function App() {
     <CartProvider>
       <Router>
         <div className="min-h-screen bg-white">
-          <ScrollToTop />
+          <ScrollManager />
           <Header />
           <main>
             <Routes>

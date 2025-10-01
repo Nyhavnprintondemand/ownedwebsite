@@ -20,18 +20,18 @@ const HomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <ScrollReveal direction="up" delay={0}>
+              <ScrollReveal direction="up" delay={100} duration={1000}>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                   <span className="font-playfair text-gray-900 block">Design din egen</span>
                   <span className="gradient-text block">T-shirt eller hoodie</span>
                 </h1>
               </ScrollReveal>
-              <ScrollReveal direction="up" delay={200}>
+              <ScrollReveal direction="up" delay={300} duration={800}>
                 <p className="text-xl text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0">
                   Hurtig levering · Ingen minimumsordre
                 </p>
               </ScrollReveal>
-              <ScrollReveal direction="up" delay={400}>
+              <ScrollReveal direction="up" delay={500} duration={800}>
                 <Link
                   to="/design"
                   className="btn-primary btn-magnetic hover-glow-intense inline-flex items-center px-8 py-4 text-white font-semibold rounded-full group active:scale-95"
@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
                 </Link>
               </ScrollReveal>
             </div>
-            <ScrollReveal direction="right" delay={300}>
+            <ScrollReveal direction="left" delay={200} duration={1000}>
               <div className="relative">
                 <div className="image-hover-zoom">
                   <img
