@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ScrollReveal from '../components/ScrollReveal';
 import { Upload, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
@@ -134,221 +135,227 @@ const DesignPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 animate-fade-in-up">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
-            <span className="gradient-text">Design dit eget tøj</span>
-          </h1>
-          <p className="text-xl text-gray-600">
-            Vælg produkt, upload dit design og se det live
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-accent-orange-light mx-auto mt-6 rounded-full"></div>
-        </div>
+        <ScrollReveal direction="up">
+          <div className="text-center mb-12">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
+              <span className="gradient-text">Design dit eget tøj</span>
+            </h1>
+            <p className="text-xl text-gray-600">
+              Vælg produkt, upload dit design og se det live
+            </p>
+            <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-accent-orange-light mx-auto mt-6 rounded-full"></div>
+          </div>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Configuration */}
-          <div className="premium-card rounded-2xl p-8 animate-fade-in-up animate-delay-100">
-            <h2 className="text-2xl font-semibold mb-6">
-              <span className="gradient-text">Konfiguration</span>
-            </h2>
+          <ScrollReveal direction="left" delay={100}>
+            <div className="premium-card rounded-2xl p-8">
+              <h2 className="text-2xl font-semibold mb-6">
+                <span className="gradient-text">Konfiguration</span>
+              </h2>
 
-            {/* Product Selection */}
-            <div className="mb-8">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Vælg produkt</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <button
-                  onClick={() => setSelectedProduct('tshirt')}
-                  className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
-                    selectedProduct === 'tshirt'
-                      ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow text-white'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <img
-                    src={products.tshirt.image}
-                    alt="T-shirt"
-                    className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <p className={`font-medium transition-colors duration-300 ${
-                    selectedProduct === 'tshirt' ? 'text-white' : 'group-hover:text-accent-orange'
-                  }`}>T-shirt</p>
-                  <p className={`font-bold ${
-                    selectedProduct === 'tshirt' ? 'text-white' : 'gradient-text'
-                  }`}>{products.tshirt.price} kr</p>
-                </button>
-                
-                <button
-                  onClick={() => setSelectedProduct('hoodie')}
-                  className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
-                    selectedProduct === 'hoodie'
-                      ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow text-white'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <img
-                    src={products.hoodie.image}
-                    alt="Hoodie"
-                    className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <p className={`font-medium transition-colors duration-300 ${
-                    selectedProduct === 'hoodie' ? 'text-white' : 'group-hover:text-accent-orange'
-                  }`}>Hoodie</p>
-                  <p className={`font-bold ${
-                    selectedProduct === 'hoodie' ? 'text-white' : 'gradient-text'
-                  }`}>{products.hoodie.price} kr</p>
-                </button>
-              </div>
-            </div>
-
-            {/* Size Selection */}
-            <div className="mb-8">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Størrelse</h3>
-              <div className="grid grid-cols-3 gap-2">
-                {sizes.map((size) => (
+              {/* Product Selection */}
+              <div className="mb-8">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Vælg produkt</h3>
+                <div className="grid grid-cols-2 gap-4">
                   <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`py-2 px-4 rounded-lg border font-medium transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 ${
-                      selectedSize === size
-                        ? 'border-accent-orange bg-gradient-to-r from-accent-orange to-accent-orange-light text-white animate-pulse-glow'
-                        : 'border-gray-300 hover:border-gray-400'
-                    }`}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Color Selection */}
-            <div className="mb-8">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Farve</h3>
-              <div className="grid grid-cols-3 gap-2">
-                {colors.map((color) => (
-                  <button
-                    key={color.name}
-                    onClick={() => setSelectedColor(color.name)}
-                    className={`p-3 rounded-lg border-2 flex items-center space-x-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
-                      selectedColor === color.name
-                        ? 'border-accent-orange bg-gradient-to-r from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow'
+                    onClick={() => setSelectedProduct('tshirt')}
+                    className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
+                      selectedProduct === 'tshirt'
+                        ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow text-white'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
-                    <div
-                      className="w-4 h-4 rounded-full border border-gray-300 group-hover:scale-110 transition-transform duration-300"
-                      style={{ backgroundColor: color.hex }}
-                    ></div>
-                    <span className={`text-sm font-medium transition-colors duration-300 ${
-                      selectedColor === color.name 
-                        ? 'text-white' 
-                        : 'group-hover:text-accent-orange'
-                    }`}>{color.label}</span>
+                    <img
+                      src={products.tshirt.image}
+                      alt="T-shirt"
+                      className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <p className={`font-medium transition-colors duration-300 ${
+                      selectedProduct === 'tshirt' ? 'text-white' : 'group-hover:text-accent-orange'
+                    }`}>T-shirt</p>
+                    <p className={`font-bold ${
+                      selectedProduct === 'tshirt' ? 'text-white' : 'gradient-text'
+                    }`}>{products.tshirt.price} kr</p>
                   </button>
-                ))}
-              </div>
-            </div>
-
-            {/* File Upload */}
-            <div className="mb-8">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Upload dit design</h3>
-              <label className="block w-full">
-                <input
-                  type="file"
-                  accept=".png,.jpg,.jpeg,.svg"
-                  onChange={handleFileUpload}
-                  className="sr-only"
-                />
-                <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-accent-orange transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:bg-gradient-to-br hover:from-gray-50 hover:to-accent-orange-light hover:bg-opacity-5 group">
-                  <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4 group-hover:text-accent-orange group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                  <p className="text-gray-600 mb-2">
-                    {uploadedFile ? uploadedFile.name : 'Klik for at uploade dit design'}
-                  </p>
-                  <p className="text-sm text-gray-400 group-hover:text-accent-orange transition-colors duration-300">PNG, JPG eller SVG (max 10MB)</p>
+                
+                  <button
+                    onClick={() => setSelectedProduct('hoodie')}
+                    className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
+                      selectedProduct === 'hoodie'
+                        ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow text-white'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <img
+                      src={products.hoodie.image}
+                      alt="Hoodie"
+                      className="w-full h-32 object-cover rounded-lg mb-2 transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <p className={`font-medium transition-colors duration-300 ${
+                      selectedProduct === 'hoodie' ? 'text-white' : 'group-hover:text-accent-orange'
+                    }`}>Hoodie</p>
+                    <p className={`font-bold ${
+                      selectedProduct === 'hoodie' ? 'text-white' : 'gradient-text'
+                    }`}>{products.hoodie.price} kr</p>
+                  </button>
                 </div>
-              </label>
-            </div>
+              </div>
 
-            {/* Quantity */}
-            <div className="mb-8">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Antal</h3>
-              <div className="flex items-center space-x-4">
+              {/* Size Selection */}
+              <div className="mb-8">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Størrelse</h3>
+                <div className="grid grid-cols-3 gap-2">
+                  {sizes.map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      className={`py-2 px-4 rounded-lg border font-medium transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 ${
+                        selectedSize === size
+                          ? 'border-accent-orange bg-gradient-to-r from-accent-orange to-accent-orange-light text-white animate-pulse-glow'
+                          : 'border-gray-300 hover:border-gray-400'
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Color Selection */}
+              <div className="mb-8">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Farve</h3>
+                <div className="grid grid-cols-3 gap-2">
+                  {colors.map((color) => (
+                    <button
+                      key={color.name}
+                      onClick={() => setSelectedColor(color.name)}
+                      className={`p-3 rounded-lg border-2 flex items-center space-x-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
+                        selectedColor === color.name
+                          ? 'border-accent-orange bg-gradient-to-r from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <div
+                        className="w-4 h-4 rounded-full border border-gray-300 group-hover:scale-110 transition-transform duration-300"
+                        style={{ backgroundColor: color.hex }}
+                      ></div>
+                      <span className={`text-sm font-medium transition-colors duration-300 ${
+                        selectedColor === color.name 
+                          ? 'text-white' 
+                          : 'group-hover:text-accent-orange'
+                      }`}>{color.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* File Upload */}
+              <div className="mb-8">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Upload dit design</h3>
+                <label className="block w-full">
+                  <input
+                    type="file"
+                    accept=".png,.jpg,.jpeg,.svg"
+                    onChange={handleFileUpload}
+                    className="sr-only"
+                  />
+                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-accent-orange transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:bg-gradient-to-br hover:from-gray-50 hover:to-accent-orange-light hover:bg-opacity-5 group">
+                    <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4 group-hover:text-accent-orange group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+                    <p className="text-gray-600 mb-2">
+                      {uploadedFile ? uploadedFile.name : 'Klik for at uploade dit design'}
+                    </p>
+                    <p className="text-sm text-gray-400 group-hover:text-accent-orange transition-colors duration-300">PNG, JPG eller SVG (max 10MB)</p>
+                  </div>
+                </label>
+              </div>
+
+              {/* Quantity */}
+              <div className="mb-8">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Antal</h3>
+                <div className="flex items-center space-x-4">
+                  <button
+                    onClick={() => quantity > 1 && setQuantity(quantity - 1)}
+                    className="p-2 rounded-lg border border-gray-300 hover:border-accent-orange hover:bg-accent-orange hover:text-white transition-all duration-300 hover:scale-110 active:scale-95"
+                    disabled={quantity <= 1}
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                  <span className="text-xl font-semibold px-4 gradient-text">{quantity}</span>
+                  <button
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="p-2 rounded-lg border border-gray-300 hover:border-accent-orange hover:bg-accent-orange hover:text-white transition-all duration-300 hover:scale-110 active:scale-95"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Add to Cart */}
+              <div className="border-t pt-6">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-lg font-medium">Total:</span>
+                  <span className="text-2xl font-bold gradient-text">{totalPrice} kr</span>
+                </div>
                 <button
-                  onClick={() => quantity > 1 && setQuantity(quantity - 1)}
-                  className="p-2 rounded-lg border border-gray-300 hover:border-accent-orange hover:bg-accent-orange hover:text-white transition-all duration-300 hover:scale-110 active:scale-95"
-                  disabled={quantity <= 1}
+                  onClick={handleAddToCart}
+                  disabled={isUploading}
+                  className="btn-primary magnetic-btn w-full text-white py-4 rounded-xl font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transform hover:scale-105 active:scale-95 group"
                 >
-                  <Minus className="w-4 h-4" />
-                </button>
-                <span className="text-xl font-semibold px-4 gradient-text">{quantity}</span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="p-2 rounded-lg border border-gray-300 hover:border-accent-orange hover:bg-accent-orange hover:text-white transition-all duration-300 hover:scale-110 active:scale-95"
-                >
-                  <Plus className="w-4 h-4" />
+                  {isUploading ? (
+                    <>
+                      <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Uploader design...
+                    </>
+                  ) : (
+                    <>
+                      Læg i kurv
+                      <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
+                        →
+                      </div>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
-
-            {/* Add to Cart */}
-            <div className="border-t pt-6">
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-lg font-medium">Total:</span>
-                <span className="text-2xl font-bold gradient-text">{totalPrice} kr</span>
-              </div>
-              <button
-                onClick={handleAddToCart}
-                disabled={isUploading}
-                className="btn-primary magnetic-btn w-full text-white py-4 rounded-xl font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transform hover:scale-105 active:scale-95 group"
-              >
-                {isUploading ? (
-                  <>
-                    <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    Uploader design...
-                  </>
-                ) : (
-                  <>
-                    Læg i kurv
-                    <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
-                      →
-                    </div>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
+          </ScrollReveal>
 
           {/* Product Preview */}
-          <div className="premium-card rounded-2xl p-8 animate-fade-in-up animate-delay-200">
-            <h2 className="text-2xl font-semibold mb-6">
-              <span className="gradient-text">Preview</span>
-            </h2>
-            <div className="relative hover-tilt">
-              <img
-                src={currentProduct.image}
-                alt={`${currentProduct.name} preview`}
-                className="w-full max-w-md mx-auto rounded-lg transition-transform duration-300 hover:scale-105"
-              />
-              {filePreview && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <img
-                    src={filePreview}
-                    alt="Uploaded design"
-                    className="max-w-32 max-h-32 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
-                  />
-                </div>
-              )}
-              {/* Decorative elements */}
-              <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent-orange opacity-30 rounded-full animate-pulse-soft"></div>
-              <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-accent-orange-light opacity-20 rounded-full animate-bounce-gentle"></div>
+          <ScrollReveal direction="right" delay={200}>
+            <div className="premium-card rounded-2xl p-8">
+              <h2 className="text-2xl font-semibold mb-6">
+                <span className="gradient-text">Preview</span>
+              </h2>
+              <div className="relative hover-tilt">
+                <img
+                  src={currentProduct.image}
+                  alt={`${currentProduct.name} preview`}
+                  className="w-full max-w-md mx-auto rounded-lg transition-transform duration-300 hover:scale-105"
+                />
+                {filePreview && (
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <img
+                      src={filePreview}
+                      alt="Uploaded design"
+                      className="max-w-32 max-h-32 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                    />
+                  </div>
+                )}
+                {/* Decorative elements */}
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent-orange opacity-30 rounded-full animate-pulse-soft"></div>
+                <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-accent-orange-light opacity-20 rounded-full animate-bounce-gentle"></div>
+              </div>
+              <div className="mt-6 text-center">
+                <h3 className="text-lg font-semibold text-gray-900 hover:text-accent-orange transition-colors duration-300">
+                  {currentProduct.name} - {colors.find(c => c.name === selectedColor)?.label}
+                </h3>
+                <p className="text-gray-600">Størrelse: {selectedSize}</p>
+                <p className="text-gray-600">Antal: {quantity}</p>
+                <p className="gradient-text font-bold text-xl mt-2">{totalPrice} kr</p>
+              </div>
             </div>
-            <div className="mt-6 text-center">
-              <h3 className="text-lg font-semibold text-gray-900 hover:text-accent-orange transition-colors duration-300">
-                {currentProduct.name} - {colors.find(c => c.name === selectedColor)?.label}
-              </h3>
-              <p className="text-gray-600">Størrelse: {selectedSize}</p>
-              <p className="text-gray-600">Antal: {quantity}</p>
-              <p className="gradient-text font-bold text-xl mt-2">{totalPrice} kr</p>
-            </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </div>

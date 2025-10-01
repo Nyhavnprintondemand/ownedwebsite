@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ScrollReveal from '../components/ScrollReveal';
 import { useCart } from '../context/CartContext';
 import { CreditCard, Truck, Shield, Check, AlertCircle } from 'lucide-react';
 
