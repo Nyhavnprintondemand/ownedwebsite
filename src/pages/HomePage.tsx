@@ -364,7 +364,6 @@ const HomePage: React.FC = () => {
         </section>
       </ScrollReveal>
             </div>
-    </div>
   );
 };
 
