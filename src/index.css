@@ -371,20 +371,6 @@ select:focus {
   opacity: 1;
 }
 
-/* Text reveal animation */
-.text-reveal {
-  background: linear-gradient(90deg, transparent 0%, currentColor 50%, transparent 100%);
-  background-size: 200% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: textReveal 2s ease-in-out infinite;
-}
-
-@keyframes textReveal {
-  0%, 100% { background-position: -200% 0; }
-  50% { background-position: 200% 0; }
-}
-
 /* Staggered hover effects for groups */
 .stagger-hover > *:nth-child(1) { transition-delay: 0ms; }
 .stagger-hover > *:nth-child(2) { transition-delay: 100ms; }

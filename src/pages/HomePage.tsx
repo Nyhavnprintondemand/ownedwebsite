@@ -22,7 +22,7 @@ const HomePage: React.FC = () => {
             <div className="text-center lg:text-left">
               <ScrollReveal direction="up" delay={0}>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                  <span className="font-playfair text-gray-900 block text-reveal">Design din egen</span>
+                  <span className="font-playfair text-gray-900 block">Design din egen</span>
                   <span className="gradient-text block">T-shirt eller hoodie</span>
                 </h1>
               </ScrollReveal>
@@ -79,7 +79,7 @@ const HomePage: React.FC = () => {
           <ScrollReveal direction="up">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
-                <span className="gradient-text text-reveal">Hvorfor vælge Nyhavn?</span>
+                <span className="gradient-text">Hvorfor vælge Nyhavn?</span>
               </h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                 Vi leverer kvalitet, hurtighed og den bedste kundeservice i Danmark
@@ -154,7 +154,7 @@ const HomePage: React.FC = () => {
           <ScrollReveal direction="up">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
-                <span className="gradient-text text-reveal">Sådan fungerer det</span>
+                <span className="gradient-text">Sådan fungerer det</span>
               </h2>
               <p className="text-xl text-gray-600">
                 Fra idé til færdigt produkt på kun 3 nemme trin
@@ -262,7 +262,7 @@ const HomePage: React.FC = () => {
             <ScrollReveal direction="left">
               <div className="hover-lift-intense">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playfair">
-                  <span className="gradient-text text-reveal">Hvad er Print on Demand?</span>
+                  <span className="gradient-text">Hvad er Print on Demand?</span>
                 </h2>
                 <p className="text-lg text-gray-600 mb-6">
                   Print on Demand (POD) tilbyder en problemfri måde at skabe produkter af høj kvalitet og 
@@ -344,27 +344,8 @@ const HomePage: React.FC = () => {
           </div>
           
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-playfair text-reveal">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-playfair">
               Klar til at designe dit eget tøj?
             </h2>
             <p className="text-xl text-white opacity-90 mb-8">
-              Kom i gang med at skabe dit unique statement i dag
-            </p>
-            <Link
-              to="/design"
-              className="btn-magnetic hover-glow-intense inline-flex items-center px-8 py-4 bg-white text-accent-orange font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 active:scale-95 group"
-            >
-              <Edit3 className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-              Start designet nu
-              <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
-                →
-              </div>
-            </Link>
-          </div>
-        </section>
-      </ScrollReveal>
-            </div>
-  );
-};
-
-export default HomePage;
+              Kom i gang med at skabe dit unique
