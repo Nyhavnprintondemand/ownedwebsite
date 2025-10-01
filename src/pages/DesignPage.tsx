@@ -51,46 +51,7 @@ const DesignPage: React.FC = () => {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (isDragging) {
-      setDesignPosition({
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y
-      });
-    } else if (isScaling) {
-      const deltaX = e.clientX - scaleStart.x;
-      const deltaY = e.clientY - scaleStart.y;
-      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-      const scaleFactor = 1 + (distance / 100);
-      const newScale = Math.max(0.5, Math.min(3, scaleStart.scale * scaleFactor));
-      setDesignScale(newScale);
-    }
-  };
-
-  const handleScaleStart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsScaling(true);
-    setScaleStart({
-      scale: designScale,
-      x: e.clientX,
-      y: e.clientY
-    });
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    setIsScaling(false);
-  };
-
-  const handleScaleChange = (newScale: number) => {
-    const clampedScale = Math.max(0.5, Math.min(3, newScale));
-    setDesignScale(clampedScale);
-  };
-
-  const resetDesignPosition = () => {
-    setDesignPosition({ x: 0, y: 0 });
-    setDesignScale(1);
-  };
+    if (!isDragging) return;
     
     setDesignPosition({
       x: e.clientX - dragStart.x,
@@ -421,39 +382,63 @@ const DesignPage: React.FC = () => {
                 {filePreview && (
                   <div 
                     className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
-                      isDragging ? 'cursor-grabbing' : 'cursor-grab'
-                    } select-none`}
+                      isDragging ? 'cursor-grabbing' : isScaling ? 'cursor-nw-resize' : 'cursor-grab'
+                    } select-none group`}
                     style={{
                       transform: `translate(-50%, -50%) translate(${designPosition.x}px, ${designPosition.y}px) scale(${designScale})`,
-                      transition: isDragging ? 'none' : 'transform 0.2s ease'
+                      transition: isDragging || isScaling ? 'none' : 'transform 0.2s ease'
                     }}
                     onMouseDown={handleMouseDown}
                   >
                     <img
                       src={filePreview}
                       alt="Uploaded design"
-                      className="max-w-32 max-h-32 object-contain opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                      className="max-w-32 max-h-32 object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none border-2 border-transparent group-hover:border-accent-orange group-hover:border-dashed rounded-lg"
                       draggable={false}
                     />
                     
-                    {/* Design controls */}
-                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg px-3 py-1 opacity-0 hover:opacity-100 transition-opacity duration-200 flex items-center space-x-2 text-xs">
+                    {/* Corner resize handles */}
+                    <div 
+                      className="absolute -top-2 -right-2 w-4 h-4 bg-accent-orange rounded-full border-2 border-white shadow-lg cursor-nw-resize opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-125"
+                      onMouseDown={handleScaleStart}
+                      title="Drag to resize"
+                    ></div>
+                    <div 
+                      className="absolute -bottom-2 -left-2 w-4 h-4 bg-accent-orange rounded-full border-2 border-white shadow-lg cursor-nw-resize opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-125"
+                      onMouseDown={handleScaleStart}
+                      title="Drag to resize"
+                    ></div>
+                    <div 
+                      className="absolute -top-2 -left-2 w-4 h-4 bg-accent-orange rounded-full border-2 border-white shadow-lg cursor-ne-resize opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-125"
+                      onMouseDown={handleScaleStart}
+                      title="Drag to resize"
+                    ></div>
+                    <div 
+                      className="absolute -bottom-2 -right-2 w-4 h-4 bg-accent-orange rounded-full border-2 border-white shadow-lg cursor-ne-resize opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-125"
+                      onMouseDown={handleScaleStart}
+                      title="Drag to resize"
+                    ></div>
+
+                    {/* Scale control buttons */}
+                    <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center space-x-2 text-xs">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleScaleChange(designScale - 0.1);
                         }}
-                        className="w-6 h-6 bg-gray-100 hover:bg-gray-200 rounded flex items-center justify-center transition-colors"
+                        className="w-7 h-7 bg-gray-100 hover:bg-accent-orange hover:text-white rounded-full flex items-center justify-center transition-all duration-200 font-bold"
+                        title="Decrease size"
                       >
                         -
                       </button>
-                      <span className="text-gray-600 min-w-8 text-center">{Math.round(designScale * 100)}%</span>
+                      <span className="text-gray-700 min-w-12 text-center font-medium">{Math.round(designScale * 100)}%</span>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleScaleChange(designScale + 0.1);
                         }}
-                        className="w-6 h-6 bg-gray-100 hover:bg-gray-200 rounded flex items-center justify-center transition-colors"
+                        className="w-7 h-7 bg-gray-100 hover:bg-accent-orange hover:text-white rounded-full flex items-center justify-center transition-all duration-200 font-bold"
+                        title="Increase size"
                       >
                         +
                       </button>
@@ -462,7 +447,7 @@ const DesignPage: React.FC = () => {
                           e.stopPropagation();
                           resetDesignPosition();
                         }}
-                        className="w-6 h-6 bg-gray-100 hover:bg-gray-200 rounded flex items-center justify-center transition-colors"
+                        className="w-7 h-7 bg-gray-100 hover:bg-red-500 hover:text-white rounded-full flex items-center justify-center transition-all duration-200 font-bold"
                         title="Reset position"
                       >
                         ↻
@@ -478,13 +463,15 @@ const DesignPage: React.FC = () => {
               {filePreview && (
                 <div className="mt-4 p-4 bg-gray-50 rounded-lg">
                   <h4 className="text-sm font-medium text-gray-700 mb-2">Design kontroller:</h4>
-                  <div className="flex items-center justify-between text-sm text-gray-600">
-                    <span>Træk for at flytte • Hover for at skalere</span>
+                  <div className="text-sm text-gray-600 space-y-1">
+                    <p>• <strong>Træk billedet</strong> for at flytte positionen</p>
+                    <p>• <strong>Træk hjørnerne</strong> eller brug +/- knapperne for at skalere</p>
+                    <p>• <strong>Klik ↻</strong> for at nulstille position og størrelse</p>
                     <button
                       onClick={resetDesignPosition}
-                      className="text-accent-orange hover:text-accent-orange-dark transition-colors"
+                      className="block mt-2 text-accent-orange hover:text-accent-orange-dark transition-colors font-medium"
                     >
-                      Nulstil position
+                      → Nulstil alt
                     </button>
                   </div>
                 </div>
