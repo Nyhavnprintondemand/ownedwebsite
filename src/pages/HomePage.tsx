@@ -296,12 +296,6 @@ const HomePage: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-tr from-accent-orange via-transparent to-accent-orange-light opacity-10 rounded-2xl"></div>
                 <div className="absolute -top-4 -left-4 w-16 h-16 bg-accent-orange opacity-20 rounded-full blur-lg animate-float"></div>
                 <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-accent-orange-light opacity-30 rounded-full blur-md animate-bounce-gentle"></div>
-                  />
-                </div>
-                {/* Enhanced decorative overlay */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-accent-orange via-transparent to-accent-orange-light opacity-10 rounded-2xl"></div>
-                <div className="absolute -top-4 -left-4 w-16 h-16 bg-accent-orange opacity-20 rounded-full blur-lg animate-float"></div>
-                <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-accent-orange-light opacity-30 rounded-full blur-md animate-bounce-gentle"></div>
               </div>
             </ScrollReveal>
           </div>
@@ -336,59 +330,40 @@ const HomePage: React.FC = () => {
                 <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">4.8/5 stjerner</p>
               </div>
             </ScrollReveal>
-                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">SSL Sikret</p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal direction="scale" delay={200}>
-              <div className="text-center hover-lift-intense group">
-                <Heart className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 animate-heartbeat transition-all duration-300 hover-glow-intense" />
-                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">14 dages returret</p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal direction="scale" delay={300}>
-              <div className="text-center hover-lift-intense group">
-                <Check className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 hover-glow-intense" />
-                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">Danske betalinger</p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal direction="scale" delay={400}>
-              <div className="text-center hover-lift-intense group">
-                <Star className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 animate-pulse-soft transition-all duration-300 hover-glow-intense" />
-                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">4.8/5 stjerner</p>
-              </div>
-            </ScrollReveal>
           </div>
-        
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-playfair text-reveal">
-            Klar til at designe dit eget tøj?
-      <ScrollReveal direction="up">
-        <section className="py-20 bg-gradient-to-br from-accent-orange via-accent-orange-light to-accent-orange relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-white opacity-10 rounded-full blur-xl animate-float parallax-element"></div>
-          <div className="absolute bottom-10 right-10 w-24 h-24 bg-white opacity-5 rounded-full blur-lg animate-bounce-gentle parallax-element"></div>
-          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white opacity-5 rounded-full animate-pulse-soft parallax-element"></div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-playfair text-reveal">
-        </div>
-        
-          <p className="text-xl text-white opacity-90 mb-8">
-            Kom i gang med at skabe dit unique statement i dag
-          </p>
-          <Link
-            to="/design"
-            className="btn-magnetic hover-glow-intense inline-flex items-center px-8 py-4 bg-white text-accent-orange font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 active:scale-95 group"
-          >
-            <Edit3 className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-            Start designet nu
-            <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
-              →
-            </div>
-          </Link>
         </div>
       </section>
+
+      <ScrollReveal direction="up">
+        <section className="py-20 bg-gradient-to-br from-accent-orange via-accent-orange-light to-accent-orange relative overflow-hidden">
+          {/* Animated background elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-10 left-10 w-32 h-32 bg-white opacity-10 rounded-full blur-xl animate-float parallax-element"></div>
+            <div className="absolute bottom-10 right-10 w-24 h-24 bg-white opacity-5 rounded-full blur-lg animate-bounce-gentle parallax-element"></div>
+            <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white opacity-5 rounded-full animate-pulse-soft parallax-element"></div>
+          </div>
+          
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-playfair text-reveal">
+              Klar til at designe dit eget tøj?
+            </h2>
+            <p className="text-xl text-white opacity-90 mb-8">
+              Kom i gang med at skabe dit unique statement i dag
+            </p>
+            <Link
+              to="/design"
+              className="btn-magnetic hover-glow-intense inline-flex items-center px-8 py-4 bg-white text-accent-orange font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 active:scale-95 group"
+            >
+              <Edit3 className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
+              Start designet nu
+              <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
+                →
+              </div>
+            </Link>
+          </div>
+        </section>
       </ScrollReveal>
-      </ScrollReveal>
+            </div>
     </div>
   );
 };
