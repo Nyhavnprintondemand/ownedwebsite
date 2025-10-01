@@ -44,7 +44,7 @@ const DesignPage: React.FC = () => {
 
   const products = {
     tshirt: { name: 'T-shirt', price: 299, image: '/ChatGPT Image Oct 1, 2025, 06_51_00 PM.png' },
-    hoodie: { name: 'Hoodie', price: 399, image: 'https://images.pexels.com/photos/7679720/pexels-photo-7679720.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop' }
+    hoodie: { name: 'Hoodie', price: 399, image: '/ChatGPT Image Oct 1, 2025, 06_57_22 PM.png' }
   };
 
   const currentProduct = products[selectedProduct];
