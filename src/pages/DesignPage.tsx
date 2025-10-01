@@ -38,6 +38,39 @@ const DesignPage: React.FC = () => {
   const { addItem } = useCart();
   const navigate = useNavigate();
 
+  // Handler functions for design positioning and scaling
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+    setDragStart({
+      x: e.clientX - designPosition.x,
+      y: e.clientY - designPosition.y
+    });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    
+    setDesignPosition({
+      x: e.clientX - dragStart.x,
+      y: e.clientY - dragStart.y
+    });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleScaleChange = (newScale: number) => {
+    const clampedScale = Math.max(0.5, Math.min(2, newScale));
+    setDesignScale(clampedScale);
+  };
+
+  const resetDesignPosition = () => {
+    setDesignPosition({ x: 0, y: 0 });
+    setDesignScale(1);
+  };
+
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   const colors = [
     { name: 'white', label: 'Hvid', hex: '#FFFFFF' },
