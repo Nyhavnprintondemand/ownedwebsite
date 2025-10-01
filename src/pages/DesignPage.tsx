@@ -29,6 +29,12 @@ const DesignPage: React.FC = () => {
   const [filePreview, setFilePreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   
+  // Design positioning and scaling states
+  const [designPosition, setDesignPosition] = useState({ x: 0, y: 0 });
+  const [designScale, setDesignScale] = useState(1);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  
   const { addItem } = useCart();
   const navigate = useNavigate();
 
@@ -327,25 +333,89 @@ const DesignPage: React.FC = () => {
               <h2 className="text-2xl font-semibold mb-6">
                 <span className="gradient-text">Preview</span>
               </h2>
-              <div className="relative hover-tilt">
+              <div 
+                className="relative hover-tilt overflow-hidden"
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+              >
                 <img
                   src={currentProduct.image}
                   alt={`${currentProduct.name} preview`}
                   className="w-full max-w-md mx-auto rounded-lg transition-transform duration-300 hover:scale-105"
                 />
                 {filePreview && (
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div 
+                    className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
+                      isDragging ? 'cursor-grabbing' : 'cursor-grab'
+                    } select-none`}
+                    style={{
+                      transform: `translate(-50%, -50%) translate(${designPosition.x}px, ${designPosition.y}px) scale(${designScale})`,
+                      transition: isDragging ? 'none' : 'transform 0.2s ease'
+                    }}
+                    onMouseDown={handleMouseDown}
+                  >
                     <img
                       src={filePreview}
                       alt="Uploaded design"
-                      className="max-w-32 max-h-32 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                      className="max-w-32 max-h-32 object-contain opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                      draggable={false}
                     />
+                    
+                    {/* Design controls */}
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg px-3 py-1 opacity-0 hover:opacity-100 transition-opacity duration-200 flex items-center space-x-2 text-xs">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleScaleChange(designScale - 0.1);
+                        }}
+                        className="w-6 h-6 bg-gray-100 hover:bg-gray-200 rounded flex items-center justify-center transition-colors"
+                      >
+                        -
+                      </button>
+                      <span className="text-gray-600 min-w-8 text-center">{Math.round(designScale * 100)}%</span>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleScaleChange(designScale + 0.1);
+                        }}
+                        className="w-6 h-6 bg-gray-100 hover:bg-gray-200 rounded flex items-center justify-center transition-colors"
+                      >
+                        +
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          resetDesignPosition();
+                        }}
+                        className="w-6 h-6 bg-gray-100 hover:bg-gray-200 rounded flex items-center justify-center transition-colors"
+                        title="Reset position"
+                      >
+                        ↻
+                      </button>
+                    </div>
                   </div>
                 )}
                 {/* Decorative elements */}
                 <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent-orange opacity-30 rounded-full animate-pulse-soft"></div>
                 <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-accent-orange-light opacity-20 rounded-full animate-bounce-gentle"></div>
               </div>
+              
+              {filePreview && (
+                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">Design kontroller:</h4>
+                  <div className="flex items-center justify-between text-sm text-gray-600">
+                    <span>Træk for at flytte • Hover for at skalere</span>
+                    <button
+                      onClick={resetDesignPosition}
+                      className="text-accent-orange hover:text-accent-orange-dark transition-colors"
+                    >
+                      Nulstil position
+                    </button>
+                  </div>
+                </div>
+              )}
+              
               <div className="mt-6 text-center">
                 <h3 className="text-lg font-semibold text-gray-900 hover:text-accent-orange transition-colors duration-300">
                   {currentProduct.name} - {colors.find(c => c.name === selectedColor)?.label}
