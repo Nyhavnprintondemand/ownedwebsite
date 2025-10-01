@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Edit3, Truck, Shield, Star, Check, Clock, Package, Heart } from 'lucide-react';
+import { CreditCard as Edit3, Truck, Shield, Star, Check, Clock, Package, Heart } from 'lucide-react';
 import ScrollReveal from '../components/ScrollReveal';
 
 const HomePage: React.FC = () => {
