@@ -55,8 +55,14 @@ const HomePage: React.FC = () => {
                   />
                 </div>
                 <div className="absolute -top-4 -right-4 bg-gradient-to-r from-accent-orange to-accent-orange-light text-white px-4 py-2 rounded-full text-sm font-semibold animate-bounce-in animate-pulse-glow hover-glow-intense">
+                </div>
+                <div className="absolute -top-4 -right-4 bg-gradient-to-r from-accent-orange to-accent-orange-light text-white px-4 py-2 rounded-full text-sm font-semibold animate-bounce-in animate-pulse-glow hover-glow-intense">
                   Fra 299 kr
                 </div>
+                {/* Enhanced decorative elements */}
+                <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-accent-orange-light opacity-20 rounded-full blur-lg animate-bounce-gentle"></div>
+                <div className="absolute top-1/2 -right-8 w-8 h-8 bg-accent-orange opacity-30 rounded-full animate-pulse-soft"></div>
+                <div className="absolute -top-8 left-1/4 w-12 h-12 bg-gradient-to-r from-accent-orange to-accent-orange-light opacity-15 rounded-full blur-md animate-float"></div>
                 {/* Enhanced decorative elements */}
                 <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-accent-orange-light opacity-20 rounded-full blur-lg animate-bounce-gentle"></div>
                 <div className="absolute top-1/2 -right-8 w-8 h-8 bg-accent-orange opacity-30 rounded-full animate-pulse-soft"></div>
@@ -136,6 +142,14 @@ const HomePage: React.FC = () => {
           }}></div>
         </div>
         
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 25% 25%, #FF6600 2px, transparent 2px), radial-gradient(circle at 75% 75%, #FF6600 2px, transparent 2px)`,
+            backgroundSize: '50px 50px'
+          }}></div>
+        </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up">
             <div className="text-center mb-16">
@@ -172,6 +186,19 @@ const HomePage: React.FC = () => {
                     />
                   </svg>
                 </div>
+                {/* Enhanced Animated Arrow */}
+                <div className="hidden md:block absolute top-10 left-full w-32 h-0.5 z-0">
+                  <svg className="w-full h-full" viewBox="0 0 128 2" fill="none">
+                    <path 
+                      d="M0 1 L120 1 M115 -3 L120 1 L115 5" 
+                      stroke="#FF6600" 
+                      strokeOpacity="0.3"
+                      strokeWidth="2" 
+                      fill="none"
+                      className="animate-pulse animate-delay-200 group-hover:stroke-opacity-100 transition-all duration-300"
+                    />
+                  </svg>
+                </div>
               </div>
             </ScrollReveal>
 
@@ -184,6 +211,19 @@ const HomePage: React.FC = () => {
                 <p className="text-gray-600">
                   Upload dit eget design eller logo og se det live på produktet
                 </p>
+                {/* Enhanced Animated Arrow */}
+                <div className="hidden md:block absolute top-10 left-full w-32 h-0.5 z-0">
+                  <svg className="w-full h-full" viewBox="0 0 128 2" fill="none">
+                    <path 
+                      d="M0 1 L120 1 M115 -3 L120 1 L115 5" 
+                      stroke="#FF6600" 
+                      strokeOpacity="0.3"
+                      strokeWidth="2" 
+                      fill="none"
+                      className="animate-pulse animate-delay-400 group-hover:stroke-opacity-100 transition-all duration-300"
+                    />
+                  </svg>
+                </div>
                 {/* Enhanced Animated Arrow */}
                 <div className="hidden md:block absolute top-10 left-full w-32 h-0.5 z-0">
                   <svg className="w-full h-full" viewBox="0 0 128 2" fill="none">
@@ -256,6 +296,12 @@ const HomePage: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-tr from-accent-orange via-transparent to-accent-orange-light opacity-10 rounded-2xl"></div>
                 <div className="absolute -top-4 -left-4 w-16 h-16 bg-accent-orange opacity-20 rounded-full blur-lg animate-float"></div>
                 <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-accent-orange-light opacity-30 rounded-full blur-md animate-bounce-gentle"></div>
+                  />
+                </div>
+                {/* Enhanced decorative overlay */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-accent-orange via-transparent to-accent-orange-light opacity-10 rounded-2xl"></div>
+                <div className="absolute -top-4 -left-4 w-16 h-16 bg-accent-orange opacity-20 rounded-full blur-lg animate-float"></div>
+                <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-accent-orange-light opacity-30 rounded-full blur-md animate-bounce-gentle"></div>
               </div>
             </ScrollReveal>
           </div>
@@ -290,11 +336,32 @@ const HomePage: React.FC = () => {
                 <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">4.8/5 stjerner</p>
               </div>
             </ScrollReveal>
+                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">SSL Sikret</p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal direction="scale" delay={200}>
+              <div className="text-center hover-lift-intense group">
+                <Heart className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 animate-heartbeat transition-all duration-300 hover-glow-intense" />
+                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">14 dages returret</p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal direction="scale" delay={300}>
+              <div className="text-center hover-lift-intense group">
+                <Check className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 hover-glow-intense" />
+                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">Danske betalinger</p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal direction="scale" delay={400}>
+              <div className="text-center hover-lift-intense group">
+                <Star className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 animate-pulse-soft transition-all duration-300 hover-glow-intense" />
+                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">4.8/5 stjerner</p>
+              </div>
+            </ScrollReveal>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-playfair text-reveal">
+            Klar til at designe dit eget tøj?
       <ScrollReveal direction="up">
         <section className="py-20 bg-gradient-to-br from-accent-orange via-accent-orange-light to-accent-orange relative overflow-hidden">
         {/* Animated background elements */}
@@ -302,13 +369,9 @@ const HomePage: React.FC = () => {
           <div className="absolute top-10 left-10 w-32 h-32 bg-white opacity-10 rounded-full blur-xl animate-float parallax-element"></div>
           <div className="absolute bottom-10 right-10 w-24 h-24 bg-white opacity-5 rounded-full blur-lg animate-bounce-gentle parallax-element"></div>
           <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white opacity-5 rounded-full animate-pulse-soft parallax-element"></div>
-          <div className="absolute top-1/4 right-1/3 w-20 h-20 bg-white opacity-8 rounded-full blur-md animate-float parallax-element"></div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-playfair text-reveal">
         </div>
         
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-playfair text-reveal">
-            Klar til at designe dit eget tøj?
-          </h2>
           <p className="text-xl text-white opacity-90 mb-8">
             Kom i gang med at skabe dit unique statement i dag
           </p>
@@ -324,6 +387,7 @@ const HomePage: React.FC = () => {
           </Link>
         </div>
       </section>
+      </ScrollReveal>
       </ScrollReveal>
     </div>
   );

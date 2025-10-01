@@ -39,7 +39,7 @@ const Header: React.FC = () => {
                 to={item.href}
                 className={`px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative group ${
                   location.pathname === item.href
-                    ? 'text-accent-orange'
+                    ? 'gradient-text'
                     : 'text-gray-700 hover:text-accent-orange'
                 }`}
               >
