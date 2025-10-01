@@ -70,7 +70,7 @@ const HomePage: React.FC = () => {
       {/* Hvorfor vælge Nyhavn Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal direction="up">
+          <ScrollReveal direction="up" delay={100} duration={800}>
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
                 <span className="gradient-text">Hvorfor vælge Nyhavn?</span>
@@ -83,7 +83,7 @@ const HomePage: React.FC = () => {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-hover">
-            <ScrollReveal direction="up" delay={100}>
+            <ScrollReveal direction="up" delay={200} duration={600}>
               <div className="premium-card hover-lift-intense text-center p-6 rounded-xl group">
                 <div className="w-16 h-16 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <Package className="w-8 h-8 text-white" />
@@ -93,7 +93,7 @@ const HomePage: React.FC = () => {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal direction="up" delay={200}>
+            <ScrollReveal direction="up" delay={300} duration={600}>
               <div className="premium-card hover-lift-intense text-center p-6 rounded-xl group">
                 <div className="w-16 h-16 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <Star className="w-8 h-8 text-white" />
@@ -103,7 +103,7 @@ const HomePage: React.FC = () => {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal direction="up" delay={300}>
+            <ScrollReveal direction="up" delay={400} duration={600}>
               <div className="premium-card hover-lift-intense text-center p-6 rounded-xl group">
                 <div className="w-16 h-16 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <Shield className="w-8 h-8 text-white" />
@@ -113,7 +113,7 @@ const HomePage: React.FC = () => {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal direction="up" delay={400}>
+            <ScrollReveal direction="up" delay={500} duration={600}>
               <div className="premium-card hover-lift-intense text-center p-6 rounded-xl group">
                 <div className="w-16 h-16 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <Truck className="w-8 h-8 text-white" />
@@ -137,7 +137,7 @@ const HomePage: React.FC = () => {
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal direction="up">
+          <ScrollReveal direction="up" delay={100} duration={800}>
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
                 <span className="gradient-text">Sådan fungerer det</span>
@@ -150,7 +150,7 @@ const HomePage: React.FC = () => {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <ScrollReveal direction="up" delay={100}>
+            <ScrollReveal direction="up" delay={200} duration={700}>
               <div className="text-center relative group hover-tilt hover-lift-intense">
                 <div className="w-20 h-20 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow hover-glow-intense">
                   <span className="text-white text-2xl font-bold">1</span>
@@ -175,7 +175,7 @@ const HomePage: React.FC = () => {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal direction="up" delay={200}>
+            <ScrollReveal direction="up" delay={400} duration={700}>
               <div className="text-center relative group hover-tilt hover-lift-intense">
                 <div className="w-20 h-20 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow hover-glow-intense">
                   <span className="text-white text-2xl font-bold">2</span>
@@ -200,7 +200,7 @@ const HomePage: React.FC = () => {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal direction="up" delay={300}>
+            <ScrollReveal direction="up" delay={600} duration={700}>
               <div className="text-center group hover-tilt hover-lift-intense">
                 <div className="w-20 h-20 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow hover-glow-intense">
                   <span className="text-white text-2xl font-bold">3</span>
@@ -219,7 +219,7 @@ const HomePage: React.FC = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <ScrollReveal direction="left">
+            <ScrollReveal direction="right" delay={100} duration={800}>
               <div className="hover-lift-intense">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playfair">
                   <span className="gradient-text">Hvad er Print on Demand?</span>
@@ -242,7 +242,7 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
             </ScrollReveal>
-            <ScrollReveal direction="right" delay={200}>
+            <ScrollReveal direction="left" delay={300} duration={800}>
               <div className="relative hover-tilt hover-lift-intense">
                 <div className="image-hover-zoom">
                   <img
@@ -266,25 +266,25 @@ const HomePage: React.FC = () => {
       <section className="py-16 bg-gradient-to-r from-gray-50 via-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center stagger-hover">
-            <ScrollReveal direction="scale" delay={100}>
+            <ScrollReveal direction="scale" delay={100} duration={500}>
               <div className="text-center hover-lift-intense group">
                 <Shield className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 hover-glow-intense" />
                 <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">SSL Sikret</p>
               </div>
             </ScrollReveal>
-            <ScrollReveal direction="scale" delay={200}>
+            <ScrollReveal direction="scale" delay={200} duration={500}>
               <div className="text-center hover-lift-intense group">
                 <Heart className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 animate-heartbeat transition-all duration-300 hover-glow-intense" />
                 <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">14 dages returret</p>
               </div>
             </ScrollReveal>
-            <ScrollReveal direction="scale" delay={300}>
+            <ScrollReveal direction="scale" delay={300} duration={500}>
               <div className="text-center hover-lift-intense group">
                 <Check className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 hover-glow-intense" />
                 <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">Danske betalinger</p>
               </div>
             </ScrollReveal>
-            <ScrollReveal direction="scale" delay={400}>
+            <ScrollReveal direction="scale" delay={400} duration={500}>
               <div className="text-center hover-lift-intense group">
                 <Star className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 animate-pulse-soft transition-all duration-300 hover-glow-intense" />
                 <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">4.8/5 stjerner</p>
@@ -294,7 +294,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      <ScrollReveal direction="up">
+      <ScrollReveal direction="up" delay={100} duration={800}>
         <section className="py-20 bg-gradient-to-br from-accent-orange via-accent-orange-light to-accent-orange relative overflow-hidden">
           {/* Animated background elements */}
           <div className="absolute inset-0 overflow-hidden">
