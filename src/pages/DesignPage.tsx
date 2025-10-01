@@ -417,7 +417,7 @@ const DesignPage: React.FC = () => {
                     />
                     
                     {/* Gear Icon with Scale Controls */}
-                    <div className="absolute -top-8 -right-8 group/gear">
+                    <div className="absolute -top-8 -right-8 group/gear hover:z-30">
                       <div className="w-8 h-8 bg-accent-orange rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 cursor-pointer">
                         <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
@@ -425,14 +425,14 @@ const DesignPage: React.FC = () => {
                       </div>
                       
                       {/* Scale Controls - Show on Gear Hover */}
-                      <div className="absolute bottom-12 right-0 bg-white rounded-lg shadow-xl px-3 py-2 opacity-0 group-hover/gear:opacity-100 hover:opacity-100 transition-all duration-300 pointer-events-none group-hover/gear:pointer-events-auto hover:pointer-events-auto z-20 min-w-max">
+                      <div className="absolute bottom-12 right-0 bg-white rounded-lg shadow-xl px-3 py-2 opacity-0 group-hover/gear:opacity-100 transition-all duration-300 pointer-events-none group-hover/gear:pointer-events-auto z-30 min-w-max">
                         <div className="flex items-center space-x-2 text-sm">
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               handleScaleChange(designScale - 0.1);
                             }}
-                            className="w-7 h-7 bg-gray-100 hover:bg-accent-orange hover:text-white rounded-full flex items-center justify-center transition-all duration-200 font-bold"
+                            className="w-7 h-7 bg-gray-100 hover:bg-accent-orange hover:text-white rounded-full flex items-center justify-center transition-all duration-200 font-bold pointer-events-auto"
                           >
                             -
                           </button>
@@ -444,7 +444,7 @@ const DesignPage: React.FC = () => {
                               e.stopPropagation();
                               handleScaleChange(designScale + 0.1);
                             }}
-                            className="w-7 h-7 bg-gray-100 hover:bg-accent-orange hover:text-white rounded-full flex items-center justify-center transition-all duration-200 font-bold"
+                            className="w-7 h-7 bg-gray-100 hover:bg-accent-orange hover:text-white rounded-full flex items-center justify-center transition-all duration-200 font-bold pointer-events-auto"
                           >
                             +
                           </button>
@@ -457,7 +457,7 @@ const DesignPage: React.FC = () => {
                               e.stopPropagation();
                               resetDesignPosition();
                             }}
-                            className="w-full text-xs text-gray-600 hover:text-accent-orange transition-colors duration-200 py-1"
+                            className="w-full text-xs text-gray-600 hover:text-accent-orange transition-colors duration-200 py-1 pointer-events-auto"
                           >
                             Reset Position & Size
                           </button>
