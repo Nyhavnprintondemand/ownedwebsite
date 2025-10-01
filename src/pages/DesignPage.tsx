@@ -33,7 +33,9 @@ const DesignPage: React.FC = () => {
   const [designPosition, setDesignPosition] = useState({ x: 0, y: 0 });
   const [designScale, setDesignScale] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
+  const [isScaling, setIsScaling] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [scaleStart, setScaleStart] = useState({ scale: 1, x: 0, y: 0 });
   
   const { addItem } = useCart();
   const navigate = useNavigate();
@@ -49,7 +51,46 @@ const DesignPage: React.FC = () => {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
+    if (isDragging) {
+      setDesignPosition({
+        x: e.clientX - dragStart.x,
+        y: e.clientY - dragStart.y
+      });
+    } else if (isScaling) {
+      const deltaX = e.clientX - scaleStart.x;
+      const deltaY = e.clientY - scaleStart.y;
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+      const scaleFactor = 1 + (distance / 100);
+      const newScale = Math.max(0.5, Math.min(3, scaleStart.scale * scaleFactor));
+      setDesignScale(newScale);
+    }
+  };
+
+  const handleScaleStart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsScaling(true);
+    setScaleStart({
+      scale: designScale,
+      x: e.clientX,
+      y: e.clientY
+    });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    setIsScaling(false);
+  };
+
+  const handleScaleChange = (newScale: number) => {
+    const clampedScale = Math.max(0.5, Math.min(3, newScale));
+    setDesignScale(clampedScale);
+  };
+
+  const resetDesignPosition = () => {
+    setDesignPosition({ x: 0, y: 0 });
+    setDesignScale(1);
+  };
     
     setDesignPosition({
       x: e.clientX - dragStart.x,
