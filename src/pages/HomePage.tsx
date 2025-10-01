@@ -55,14 +55,8 @@ const HomePage: React.FC = () => {
                   />
                 </div>
                 <div className="absolute -top-4 -right-4 bg-gradient-to-r from-accent-orange to-accent-orange-light text-white px-4 py-2 rounded-full text-sm font-semibold animate-bounce-in animate-pulse-glow hover-glow-intense">
-                </div>
-                <div className="absolute -top-4 -right-4 bg-gradient-to-r from-accent-orange to-accent-orange-light text-white px-4 py-2 rounded-full text-sm font-semibold animate-bounce-in animate-pulse-glow hover-glow-intense">
                   Fra 299 kr
                 </div>
-                {/* Enhanced decorative elements */}
-                <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-accent-orange-light opacity-20 rounded-full blur-lg animate-bounce-gentle"></div>
-                <div className="absolute top-1/2 -right-8 w-8 h-8 bg-accent-orange opacity-30 rounded-full animate-pulse-soft"></div>
-                <div className="absolute -top-8 left-1/4 w-12 h-12 bg-gradient-to-r from-accent-orange to-accent-orange-light opacity-15 rounded-full blur-md animate-float"></div>
                 {/* Enhanced decorative elements */}
                 <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-accent-orange-light opacity-20 rounded-full blur-lg animate-bounce-gentle"></div>
                 <div className="absolute top-1/2 -right-8 w-8 h-8 bg-accent-orange opacity-30 rounded-full animate-pulse-soft"></div>
@@ -142,14 +136,6 @@ const HomePage: React.FC = () => {
           }}></div>
         </div>
         
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 25% 25%, #FF6600 2px, transparent 2px), radial-gradient(circle at 75% 75%, #FF6600 2px, transparent 2px)`,
-            backgroundSize: '50px 50px'
-          }}></div>
-        </div>
-        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up">
             <div className="text-center mb-16">
@@ -186,19 +172,6 @@ const HomePage: React.FC = () => {
                     />
                   </svg>
                 </div>
-                {/* Enhanced Animated Arrow */}
-                <div className="hidden md:block absolute top-10 left-full w-32 h-0.5 z-0">
-                  <svg className="w-full h-full" viewBox="0 0 128 2" fill="none">
-                    <path 
-                      d="M0 1 L120 1 M115 -3 L120 1 L115 5" 
-                      stroke="#FF6600" 
-                      strokeOpacity="0.3"
-                      strokeWidth="2" 
-                      fill="none"
-                      className="animate-pulse animate-delay-200 group-hover:stroke-opacity-100 transition-all duration-300"
-                    />
-                  </svg>
-                </div>
               </div>
             </ScrollReveal>
 
@@ -211,19 +184,6 @@ const HomePage: React.FC = () => {
                 <p className="text-gray-600">
                   Upload dit eget design eller logo og se det live på produktet
                 </p>
-                {/* Enhanced Animated Arrow */}
-                <div className="hidden md:block absolute top-10 left-full w-32 h-0.5 z-0">
-                  <svg className="w-full h-full" viewBox="0 0 128 2" fill="none">
-                    <path 
-                      d="M0 1 L120 1 M115 -3 L120 1 L115 5" 
-                      stroke="#FF6600" 
-                      strokeOpacity="0.3"
-                      strokeWidth="2" 
-                      fill="none"
-                      className="animate-pulse animate-delay-400 group-hover:stroke-opacity-100 transition-all duration-300"
-                    />
-                  </svg>
-                </div>
                 {/* Enhanced Animated Arrow */}
                 <div className="hidden md:block absolute top-10 left-full w-32 h-0.5 z-0">
                   <svg className="w-full h-full" viewBox="0 0 128 2" fill="none">
@@ -364,3 +324,7 @@ const HomePage: React.FC = () => {
         </section>
       </ScrollReveal>
     </div>
+  );
+};
+
+export default HomePage;
