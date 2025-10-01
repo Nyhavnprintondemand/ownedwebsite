@@ -25,6 +25,26 @@ const ScrollToTop: React.FC = () => {
   return null;
 };
 
+// Parallax scroll effect
+const ParallaxEffect: React.FC = () => {
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.pageYOffset;
+      const parallaxElements = document.querySelectorAll('.parallax-element');
+      
+      parallaxElements.forEach((element) => {
+        const speed = 0.5;
+        const yPos = -(scrolled * speed);
+        (element as HTMLElement).style.transform = `translateY(${yPos}px)`;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return null;
+};
 function App() {
   const [showNewsletterPopup, setShowNewsletterPopup] = useState(false);
 
@@ -45,6 +65,7 @@ function App() {
       <Router>
         <div className="min-h-screen bg-white">
           <ScrollToTop />
+          <ParallaxEffect />
           <Header />
           <main>
             <Routes>
