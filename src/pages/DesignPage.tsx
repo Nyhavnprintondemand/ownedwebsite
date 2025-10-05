@@ -511,8 +511,8 @@ const DesignPage: React.FC = () => {
                       isDragging ? 'cursor-grabbing' : 'cursor-grab'
                     } select-none`}
                     style={{
-                      top: `${(printableAreas[selectedProduct].top + printableAreas[selectedProduct].bottom) * 50}%`,
-                      left: `${(printableAreas[selectedProduct].left + printableAreas[selectedProduct].right) * 50}%`,
+                      transform: `translate(-50%, -50%) translate(${designPosition.x}px, ${designPosition.y}px) scale(${designScale})`,
+                      transition: isDragging ? 'none' : 'transform 0.2s ease'
                     }}
                     onMouseDown={handleMouseDown}
                   >
