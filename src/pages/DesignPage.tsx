@@ -93,6 +93,24 @@ const DesignPage: React.FC = () => {
     return { x: clampedX, y: clampedY };
   };
 
+  const getMaxAllowedScale = () => {
+    const boundaries = getBoundaries();
+    if (!boundaries) return 3; // Default max scale
+
+    // Design base size is 128px (max-width/height)
+    const designBaseSize = 128;
+    
+    // Calculate max scale based on printable area dimensions
+    const maxScaleX = boundaries.width / designBaseSize;
+    const maxScaleY = boundaries.height / designBaseSize;
+    
+    // Use the smaller dimension to ensure design fits in both directions
+    const maxScale = Math.min(maxScaleX, maxScaleY);
+    
+    // Add some padding (90% of max to ensure it doesn't touch edges)
+    return Math.max(0.5, maxScale * 0.9);
+  };
+
   // Handler functions for design positioning and scaling
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -114,7 +132,8 @@ const DesignPage: React.FC = () => {
       const deltaY = e.clientY - scaleStart.y;
       const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
       const scaleFactor = 1 + (distance / 100);
-      const newScale = Math.max(0.5, Math.min(3, scaleStart.scale * scaleFactor));
+      const maxScale = getMaxAllowedScale();
+      const newScale = Math.max(0.5, Math.min(maxScale, scaleStart.scale * scaleFactor));
       setDesignScale(newScale);
       // Re-clamp position when scaling
       const clamped = clampPositionToBoundaries(designPosition.x, designPosition.y);
@@ -141,8 +160,14 @@ const DesignPage: React.FC = () => {
   };
 
   const handleScaleChange = (newScale: number) => {
-    const clampedScale = Math.max(0.5, Math.min(3, newScale));
+    const maxScale = getMaxAllowedScale();
+    const clampedScale = Math.max(0.5, Math.min(maxScale, newScale));
     setDesignScale(clampedScale);
+    // Re-clamp position after scaling
+    const clamped = clampPositionToBoundaries(designPosition.x, designPosition.y);
+    if (clamped.x !== designPosition.x || clamped.y !== designPosition.y) {
+      setDesignPosition(clamped);
+    }
   };
 
   const resetDesignPosition = () => {
