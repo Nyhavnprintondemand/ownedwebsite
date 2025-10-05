@@ -231,7 +231,7 @@ const ContactPage: React.FC = () => {
                         value={formData.name}
                         onChange={handleChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent transition-all duration-300 hover:border-accent-orange hover:scale-[1.02]"
-                        placeholder="Dit fulde navn"
+                        placeholder={t('contact.namePlaceholder')}
                       />
                     </div>
                   
@@ -246,7 +246,7 @@ const ContactPage: React.FC = () => {
                         value={formData.email}
                         onChange={handleChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent transition-all duration-300 hover:border-accent-orange hover:scale-[1.02]"
-                        placeholder="din@email.dk"
+                        placeholder={t('contact.emailPlaceholder')}
                       />
                     </div>
                   </div>
@@ -262,13 +262,13 @@ const ContactPage: React.FC = () => {
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent transition-all duration-300 hover:border-accent-orange hover:scale-[1.02]"
                     >
-                      <option value="">Vælg et emne</option>
-                      <option value="general">Generel forespørgsel</option>
-                      <option value="order">Spørgsmål om ordre</option>
-                      <option value="design">Design hjælp</option>
-                      <option value="technical">Teknisk support</option>
-                      <option value="partnership">Samarbejde</option>
-                      <option value="other">Andet</option>
+                      <option value="">{t('contact.selectSubject')}</option>
+                      <option value="general">{t('contact.subjectGeneral')}</option>
+                      <option value="order">{t('contact.subjectOrder')}</option>
+                      <option value="design">{t('contact.subjectDesign')}</option>
+                      <option value="technical">{t('contact.subjectTechnical')}</option>
+                      <option value="partnership">{t('contact.subjectPartnership')}</option>
+                      <option value="other">{t('contact.subjectOther')}</option>
                     </select>
                   </div>
 
@@ -283,7 +283,7 @@ const ContactPage: React.FC = () => {
                       value={formData.message}
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent transition-all duration-300 hover:border-accent-orange hover:scale-[1.02]"
-                      placeholder="Beskriv dit spørgsmål eller din forespørgsel..."
+                      placeholder={t('contact.messagePlaceholder')}
                     />
                   </div>
 
@@ -324,22 +324,22 @@ const ContactPage: React.FC = () => {
               <ScrollReveal direction="up" delay={800}>
                 <div className="hover-tilt group">
                   <MessageCircle className="w-8 h-8 text-accent-orange mx-auto mb-3 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow" />
-                  <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">Hurtig respons</h3>
-                  <p className="text-gray-600 text-sm">Vi svarer på alle henvendelser inden for 24 timer</p>
+                  <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">{t('contact.feature1.title')}</h3>
+                  <p className="text-gray-600 text-sm">{t('contact.feature1.desc')}</p>
                 </div>
               </ScrollReveal>
               <ScrollReveal direction="up" delay={900}>
                 <div className="hover-tilt group">
                   <Phone className="w-8 h-8 text-accent-orange mx-auto mb-3 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow" />
-                  <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">Personlig service</h3>
-                  <p className="text-gray-600 text-sm">Ring direkte for øjeblikkelig hjælp og rådgivning</p>
+                  <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">{t('contact.feature2.title')}</h3>
+                  <p className="text-gray-600 text-sm">{t('contact.feature2.desc')}</p>
                 </div>
               </ScrollReveal>
               <ScrollReveal direction="up" delay={1000}>
                 <div className="hover-tilt group">
                   <Mail className="w-8 h-8 text-accent-orange mx-auto mb-3 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow" />
-                  <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">Detaljerede svar</h3>
-                  <p className="text-gray-600 text-sm">Vi giver grundige og hjælpsomme svar på alle spørgsmål</p>
+                  <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">{t('contact.feature3.title')}</h3>
+                  <p className="text-gray-600 text-sm">{t('contact.feature3.desc')}</p>
                 </div>
               </ScrollReveal>
             </div>
