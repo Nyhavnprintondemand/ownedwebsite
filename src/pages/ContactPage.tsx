@@ -107,9 +107,9 @@ const ContactPage: React.FC = () => {
                       <Phone className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">Telefon</h3>
+                      <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">{t('contact.phone')}</h3>
                       <p className="text-gray-600">+45 53 69 07 86</p>
-                      <p className="text-sm text-gray-500">Mandag - Fredag: 9:00 - 17:00</p>
+                      <p className="text-sm text-gray-500">{t('contact.phoneHours')}</p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -120,9 +120,9 @@ const ContactPage: React.FC = () => {
                       <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">Email</h3>
+                      <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">{t('contact.emailLabel')}</h3>
                       <p className="text-gray-600">nyhavnprintondemand@gmail.com</p>
-                      <p className="text-sm text-gray-500">Vi svarer inden for 24 timer</p>
+                      <p className="text-sm text-gray-500">{t('contact.emailResponse')}</p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -133,9 +133,9 @@ const ContactPage: React.FC = () => {
                       <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">Adresse</h3>
+                      <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">{t('contact.addressLabel')}</h3>
                       <p className="text-gray-600">Nyhavn 44<br />1051 København</p>
-                      <p className="text-sm text-gray-500">Besøg efter aftale</p>
+                      <p className="text-sm text-gray-500">{t('contact.visitByAppointment')}</p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -146,10 +146,10 @@ const ContactPage: React.FC = () => {
                       <Clock className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">Åbningstider</h3>
+                      <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-accent-orange transition-colors duration-300">{t('contact.openingHours')}</h3>
                       <p className="text-gray-600">
-                        Mandag - Fredag: 9:00 - 17:00<br />
-                        Weekend: Lukket
+                        {t('contact.weekdayHours')}<br />
+                        {t('contact.weekendHours')}
                       </p>
                     </div>
                   </div>
@@ -161,31 +161,31 @@ const ContactPage: React.FC = () => {
                 <div className="premium-card rounded-xl p-6 hover-lift">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center group">
                     <HelpCircle className="w-5 h-5 text-accent-orange mr-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                    Ofte stillede spørgsmål
+                    {t('contact.faq')}
                   </h3>
                   <div className="space-y-3">
                     <details className="group cursor-pointer">
                       <summary className="cursor-pointer text-gray-700 hover:text-accent-orange transition-colors">
-                        Hvor lang tid tager levering?
+                        {t('contact.faq1.q')}
                       </summary>
                       <p className="mt-2 text-sm text-gray-600 pl-4">
-                        Vi leverer normalt inden for 2-4 hverdage i Danmark.
+                        {t('contact.faq1.a')}
                       </p>
                     </details>
                     <details className="group cursor-pointer">
                       <summary className="cursor-pointer text-gray-700 hover:text-accent-orange transition-colors">
-                        Hvilke filformater accepterer I?
+                        {t('contact.faq2.q')}
                       </summary>
                       <p className="mt-2 text-sm text-gray-600 pl-4">
-                        Vi accepterer PNG, JPG og SVG filer. For bedste kvalitet anbefaler vi høj opløsning.
+                        {t('contact.faq2.a')}
                       </p>
                     </details>
                     <details className="group cursor-pointer">
                       <summary className="cursor-pointer text-gray-700 hover:text-accent-orange transition-colors">
-                        Kan jeg returnere mit produkt?
+                        {t('contact.faq3.q')}
                       </summary>
                       <p className="mt-2 text-sm text-gray-600 pl-4">
-                        Ja, vi tilbyder 14 dages returret på alle produkter.
+                        {t('contact.faq3.a')}
                       </p>
                     </details>
                   </div>

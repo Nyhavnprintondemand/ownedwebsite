@@ -268,25 +268,25 @@ const HomePage: React.FC = () => {
             <ScrollReveal direction="scale" delay={100} duration={500}>
               <div className="text-center hover-lift-intense group">
                 <Shield className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 hover-glow-intense" />
-                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">SSL Sikret</p>
+                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">{t('home.trust1')}</p>
               </div>
             </ScrollReveal>
             <ScrollReveal direction="scale" delay={200} duration={500}>
               <div className="text-center hover-lift-intense group">
                 <Heart className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 animate-heartbeat transition-all duration-300 hover-glow-intense" />
-                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">14 dages returret</p>
+                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">{t('home.trust2')}</p>
               </div>
             </ScrollReveal>
             <ScrollReveal direction="scale" delay={300} duration={500}>
               <div className="text-center hover-lift-intense group">
                 <Check className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 hover-glow-intense" />
-                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">Danske betalinger</p>
+                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">{t('home.trust3')}</p>
               </div>
             </ScrollReveal>
             <ScrollReveal direction="scale" delay={400} duration={500}>
               <div className="text-center hover-lift-intense group">
                 <Star className="w-8 h-8 text-accent-orange mx-auto mb-2 group-hover:scale-110 animate-pulse-soft transition-all duration-300 hover-glow-intense" />
-                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">4.8/5 stjerner</p>
+                <p className="text-sm font-medium text-gray-900 group-hover:text-accent-orange transition-colors duration-300">{t('home.trust4')}</p>
               </div>
             </ScrollReveal>
           </div>
@@ -304,17 +304,17 @@ const HomePage: React.FC = () => {
           
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-playfair">
-              Klar til at designe dit eget tøj?
+              {t('home.cta.title')}
             </h2>
             <p className="text-xl text-white opacity-90 mb-8">
-              Kom i gang med at skabe dit unique design i dag
+              {t('home.cta.subtitle')}
             </p>
             <Link
               to="/design"
               className="btn-primary btn-magnetic hover-glow-intense inline-flex items-center px-8 py-4 text-white font-semibold rounded-full group active:scale-95"
             >
               <Edit3 className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-              Start nu
+              {t('home.cta.button')}
               <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
                 →
               </div>
