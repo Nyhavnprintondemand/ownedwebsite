@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ScrollReveal from '../components/ScrollReveal';
 import { Upload, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -36,9 +36,62 @@ const DesignPage: React.FC = () => {
   const [isScaling, setIsScaling] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [scaleStart, setScaleStart] = useState({ scale: 1, x: 0, y: 0 });
-  
+  const [showBoundary, setShowBoundary] = useState(false);
+
+  const productImageRef = useRef<HTMLImageElement>(null);
   const { addItem } = useCart();
   const navigate = useNavigate();
+
+  // Printable area boundaries (as percentage of image dimensions)
+  const printableAreas = {
+    tshirt: {
+      top: 0.25,    // Start below collar (25% from top)
+      bottom: 0.75,  // End before hem (75% from top)
+      left: 0.30,    // Exclude left sleeve (30% from left)
+      right: 0.70,   // Exclude right sleeve (70% from left)
+    },
+    hoodie: {
+      top: 0.30,     // Start below hood (30% from top)
+      bottom: 0.70,  // End before pocket area (70% from top)
+      left: 0.32,    // Exclude left sleeve (32% from left)
+      right: 0.68,   // Exclude right sleeve (68% from left)
+    },
+  };
+
+  const getBoundaries = () => {
+    if (!productImageRef.current) return null;
+
+    const rect = productImageRef.current.getBoundingClientRect();
+    const boundaries = printableAreas[selectedProduct];
+
+    return {
+      top: rect.height * boundaries.top,
+      bottom: rect.height * boundaries.bottom,
+      left: rect.width * boundaries.left,
+      right: rect.width * boundaries.right,
+      width: rect.width * (boundaries.right - boundaries.left),
+      height: rect.height * (boundaries.bottom - boundaries.top),
+    };
+  };
+
+  const clampPositionToBoundaries = (x: number, y: number) => {
+    const boundaries = getBoundaries();
+    if (!boundaries) return { x, y };
+
+    // Design size accounting for scale (design is 128px max-width/height)
+    const designSize = 128 * designScale;
+    const halfDesignSize = designSize / 2;
+
+    // Calculate max allowed movement from center
+    const maxX = boundaries.width / 2 - halfDesignSize;
+    const maxY = boundaries.height / 2 - halfDesignSize;
+
+    // Clamp position
+    const clampedX = Math.max(-maxX, Math.min(maxX, x));
+    const clampedY = Math.max(-maxY, Math.min(maxY, y));
+
+    return { x: clampedX, y: clampedY };
+  };
 
   // Handler functions for design positioning and scaling
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -52,10 +105,10 @@ const DesignPage: React.FC = () => {
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (isDragging) {
-      setDesignPosition({
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y
-      });
+      const newX = e.clientX - dragStart.x;
+      const newY = e.clientY - dragStart.y;
+      const clamped = clampPositionToBoundaries(newX, newY);
+      setDesignPosition(clamped);
     } else if (isScaling) {
       const deltaX = e.clientX - scaleStart.x;
       const deltaY = e.clientY - scaleStart.y;
@@ -63,6 +116,11 @@ const DesignPage: React.FC = () => {
       const scaleFactor = 1 + (distance / 100);
       const newScale = Math.max(0.5, Math.min(3, scaleStart.scale * scaleFactor));
       setDesignScale(newScale);
+      // Re-clamp position when scaling
+      const clamped = clampPositionToBoundaries(designPosition.x, designPosition.y);
+      if (clamped.x !== designPosition.x || clamped.y !== designPosition.y) {
+        setDesignPosition(clamped);
+      }
     }
   };
 
@@ -117,6 +175,9 @@ const DesignPage: React.FC = () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         setFilePreview(e.target?.result as string);
+        // Center design in printable area when uploaded
+        setDesignPosition({ x: 0, y: 0 });
+        setDesignScale(1);
       };
       reader.readAsDataURL(file);
     }
@@ -387,17 +448,38 @@ const DesignPage: React.FC = () => {
               <h2 className="text-2xl font-semibold mb-6">
                 <span className="gradient-text">Preview</span>
               </h2>
-              <div 
+              <div
                 className="relative hover-tilt overflow-hidden"
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
+                onMouseEnter={() => filePreview && setShowBoundary(true)}
               >
                 <img
+                  ref={productImageRef}
                   src={currentProduct.image}
                   alt={`${currentProduct.name} preview`}
                   className="w-full max-w-md mx-auto rounded-lg transition-transform duration-300 hover:scale-105"
                 />
+                {filePreview && showBoundary && (
+                  <div
+                    className="absolute pointer-events-none"
+                    style={{
+                      top: `${printableAreas[selectedProduct].top * 100}%`,
+                      left: `${printableAreas[selectedProduct].left * 100}%`,
+                      width: `${(printableAreas[selectedProduct].right - printableAreas[selectedProduct].left) * 100}%`,
+                      height: `${(printableAreas[selectedProduct].bottom - printableAreas[selectedProduct].top) * 100}%`,
+                      border: '2px dashed rgba(255, 127, 80, 0.5)',
+                      backgroundColor: 'rgba(255, 127, 80, 0.05)',
+                      transition: 'opacity 0.3s ease',
+                      opacity: isDragging ? 1 : 0.7,
+                    }}
+                  >
+                    <div className="absolute top-2 left-2 bg-accent-orange text-white text-xs px-2 py-1 rounded">
+                      Printområde
+                    </div>
+                  </div>
+                )}
                 {filePreview && (
                   <div 
                     className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
@@ -480,7 +562,7 @@ const DesignPage: React.FC = () => {
               {filePreview && (
                 <div className="mt-4 p-4 bg-gray-50 rounded-lg">
                   <h4 className="text-sm font-medium text-gray-700 mb-2">Design kontroller:</h4>
-                  <div className="flex items-center justify-between text-sm text-gray-600">
+                  <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
                     <span>Træk for at flytte • Hover for at skalere</span>
                     <button
                       onClick={resetDesignPosition}
@@ -488,6 +570,10 @@ const DesignPage: React.FC = () => {
                     >
                       Nulstil position
                     </button>
+                  </div>
+                  <div className="flex items-center text-xs text-gray-500">
+                    <div className="w-3 h-3 border-2 border-dashed border-accent-orange mr-2 opacity-50"></div>
+                    <span>Dit design kan kun flyttes inden for printområdet</span>
                   </div>
                 </div>
               )}
