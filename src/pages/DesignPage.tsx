@@ -3,6 +3,7 @@ import ScrollReveal from '../components/ScrollReveal';
 import { Upload, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client with anon key for general use
@@ -21,6 +22,7 @@ const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supa
 const supabaseServiceRole = supabaseUrl && supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey) : null;
 
 const DesignPage: React.FC = () => {
+  const { t } = useLanguage();
   const [selectedProduct, setSelectedProduct] = useState<'tshirt' | 'hoodie'>('tshirt');
   const [selectedSize, setSelectedSize] = useState('M');
   const [selectedColor, setSelectedColor] = useState('white');
@@ -177,12 +179,12 @@ const DesignPage: React.FC = () => {
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   const colors = [
-    { name: 'white', label: 'Hvid', hex: '#FFFFFF' },
-    { name: 'black', label: 'Sort', hex: '#000000' },
-    { name: 'navy', label: 'Marineblå', hex: '#1F2937' },
-    { name: 'gray', label: 'Grå', hex: '#6B7280' },
-    { name: 'red', label: 'Rød', hex: '#EF4444' },
-    { name: 'blue', label: 'Blå', hex: '#3B82F6' }
+    { name: 'white', label: t('design.color.white'), hex: '#FFFFFF' },
+    { name: 'black', label: t('design.color.black'), hex: '#000000' },
+    { name: 'navy', label: t('design.color.marineblue'), hex: '#1F2937' },
+    { name: 'gray', label: t('design.color.gray'), hex: '#6B7280' },
+    { name: 'red', label: t('design.color.red'), hex: '#EF4444' },
+    { name: 'blue', label: t('design.color.blue'), hex: '#3B82F6' }
   ];
 
   const products = {
@@ -284,10 +286,10 @@ const DesignPage: React.FC = () => {
         <ScrollReveal direction="up">
           <div className="text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
-              <span className="gradient-text">Design dit eget tøj</span>
+              <span className="gradient-text">{t('design.title')}</span>
             </h1>
             <p className="text-xl text-gray-600">
-              Vælg produkt, upload dit design og se det live
+              {t('design.subtitle')}
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-accent-orange-light mx-auto mt-6 rounded-full"></div>
           </div>
@@ -298,12 +300,12 @@ const DesignPage: React.FC = () => {
           <ScrollReveal direction="left" delay={100}>
             <div className="premium-card rounded-2xl p-8">
               <h2 className="text-2xl font-semibold mb-6">
-                <span className="gradient-text">Konfiguration</span>
+                <span className="gradient-text">{t('design.configuration')}</span>
               </h2>
 
               {/* Product Selection */}
               <div className="mb-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Vælg produkt</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">{t('design.selectProduct')}</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <button
                     onClick={() => setSelectedProduct('tshirt')}
@@ -351,7 +353,7 @@ const DesignPage: React.FC = () => {
 
               {/* Size Selection */}
               <div className="mb-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Størrelse</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">{t('design.size')}</h3>
                 <div className="grid grid-cols-3 gap-2">
                   {sizes.map((size) => (
                     <button
@@ -371,7 +373,7 @@ const DesignPage: React.FC = () => {
 
               {/* Color Selection */}
               <div className="mb-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Farve</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">{t('design.color')}</h3>
                 <div className="grid grid-cols-3 gap-2">
                   {colors.map((color) => (
                     <button
@@ -399,7 +401,7 @@ const DesignPage: React.FC = () => {
 
               {/* File Upload */}
               <div className="mb-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Upload dit design</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">{t('design.uploadDesign')}</h3>
                 <label className="block w-full">
                   <input
                     type="file"
@@ -410,16 +412,16 @@ const DesignPage: React.FC = () => {
                   <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-accent-orange transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:bg-gradient-to-br hover:from-gray-50 hover:to-accent-orange-light hover:bg-opacity-5 group">
                     <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4 group-hover:text-accent-orange group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
                     <p className="text-gray-600 mb-2">
-                      {uploadedFile ? uploadedFile.name : 'Klik for at uploade dit design'}
+                      {uploadedFile ? uploadedFile.name : t('design.uploadText')}
                     </p>
-                    <p className="text-sm text-gray-400 group-hover:text-accent-orange transition-colors duration-300">PNG, JPG eller SVG (max 10MB)</p>
+                    <p className="text-sm text-gray-400 group-hover:text-accent-orange transition-colors duration-300">{t('design.uploadFormat')}</p>
                   </div>
                 </label>
               </div>
 
               {/* Quantity */}
               <div className="mb-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Antal</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">{t('design.quantity')}</h3>
                 <div className="flex items-center space-x-4">
                   <button
                     onClick={() => quantity > 1 && setQuantity(quantity - 1)}
@@ -441,7 +443,7 @@ const DesignPage: React.FC = () => {
               {/* Add to Cart */}
               <div className="border-t pt-6">
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-lg font-medium">Total:</span>
+                  <span className="text-lg font-medium">{t('design.totalPrice')}:</span>
                   <span className="text-2xl font-bold gradient-text">{totalPrice} kr</span>
                 </div>
                 <button
@@ -452,11 +454,11 @@ const DesignPage: React.FC = () => {
                   {isUploading ? (
                     <>
                       <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Uploader design...
+                      {t('contact.sending')}
                     </>
                   ) : (
                     <>
-                      Læg i kurv
+                      {t('design.addToCart')}
                       <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
                         →
                       </div>
@@ -471,7 +473,7 @@ const DesignPage: React.FC = () => {
           <ScrollReveal direction="right" delay={200}>
             <div className="premium-card rounded-2xl p-8">
               <h2 className="text-2xl font-semibold mb-6">
-                <span className="gradient-text">Preview</span>
+                <span className="gradient-text">{t('design.preview')}</span>
               </h2>
               <div
                 className="relative hover-tilt overflow-hidden"
@@ -501,7 +503,7 @@ const DesignPage: React.FC = () => {
                     }}
                   >
                     <div className="absolute top-2 left-2 bg-accent-orange text-white text-xs px-2 py-1 rounded">
-                      Printområde
+                      {t('design.printArea')}
                     </div>
                   </div>
                 )}
@@ -593,19 +595,19 @@ const DesignPage: React.FC = () => {
               
               {filePreview && (
                 <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">Design kontroller:</h4>
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">{t('design.controls')}</h4>
                   <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
-                    <span>Træk for at flytte • Hover for at skalere</span>
+                    <span>{t('design.dragToMove')}</span>
                     <button
                       onClick={resetDesignPosition}
                       className="text-accent-orange hover:text-accent-orange-dark transition-colors"
                     >
-                      Nulstil position
+                      {t('design.resetPosition')}
                     </button>
                   </div>
                   <div className="flex items-center text-xs text-gray-500">
                     <div className="w-3 h-3 border-2 border-dashed border-accent-orange mr-2 opacity-50"></div>
-                    <span>Dit design kan kun flyttes inden for printområdet</span>
+                    <span>{t('design.printAreaNote')}</span>
                   </div>
                 </div>
               )}
@@ -614,8 +616,8 @@ const DesignPage: React.FC = () => {
                 <h3 className="text-lg font-semibold text-gray-900 hover:text-accent-orange transition-colors duration-300">
                   {currentProduct.name} - {colors.find(c => c.name === selectedColor)?.label}
                 </h3>
-                <p className="text-gray-600">Størrelse: {selectedSize}</p>
-                <p className="text-gray-600">Antal: {quantity}</p>
+                <p className="text-gray-600">{t('design.size')}: {selectedSize}</p>
+                <p className="text-gray-600">{t('design.quantity')}: {quantity}</p>
                 <p className="gradient-text font-bold text-xl mt-2">{totalPrice} kr</p>
               </div>
             </div>

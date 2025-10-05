@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import ScrollReveal from '../components/ScrollReveal';
 import { useCart } from '../context/CartContext';
 import { CreditCard, Truck, Shield, Check, AlertCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const CheckoutPage: React.FC = () => {
+  const { t } = useLanguage();
   const { items, getTotalPrice, clearCart } = useCart();
   const [currentStep, setCurrentStep] = useState(1);
   const [orderComplete, setOrderComplete] = useState(false);
@@ -19,7 +21,7 @@ const CheckoutPage: React.FC = () => {
     address: '',
     city: '',
     postalCode: '',
-    country: 'Danmark'
+    country: t('checkout.country')
   });
 
   const [paymentMethod, setPaymentMethod] = useState('dankort');
@@ -139,19 +141,18 @@ const CheckoutPage: React.FC = () => {
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Check className="w-8 h-8 text-green-600" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Tak for din bestilling!</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('checkout.thankYou')}</h1>
           <p className="text-gray-600 mb-6">
-            Vi har modtaget din ordre og begynder at producere dit custom tøj. 
-            Du vil modtage en bekræftelsesmail inden for få minutter.
+            {t('checkout.confirmationText')}
           </p>
           <p className="text-sm text-gray-500 mb-8">
-            Ordre ID: #{orderId}
+            {t('checkout.orderId')}: #{orderId}
           </p>
           <a
             href="/"
             className="inline-flex items-center px-6 py-3 bg-accent-orange text-white font-semibold rounded-lg hover:bg-accent-orange-dark transition-colors"
           >
-            Tilbage til forsiden
+            {t('checkout.backToHome')}
           </a>
         </div>
       </div>
@@ -163,7 +164,7 @@ const CheckoutPage: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal direction="up">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4 font-playfair">Kassen</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4 font-playfair">{t('checkout.title')}</h1>
           
             {/* Progress Steps */}
             <div className="flex justify-center space-x-8 mb-8">
@@ -296,7 +297,7 @@ const CheckoutPage: React.FC = () => {
                 {/* Step 2: Shipping */}
                 {currentStep === 2 && (
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-900 mb-6">Leveringsmuligheder</h2>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('checkout.shippingOptions')}</h2>
                   
                     <div className="space-y-4">
                       <label className={`block p-4 border-2 rounded-lg cursor-pointer transition-colors ${
@@ -316,7 +317,7 @@ const CheckoutPage: React.FC = () => {
                           <div className="flex items-center space-x-3">
                             <Truck className="w-5 h-5 text-accent-orange" />
                             <div>
-                              <p className="font-medium text-gray-900">Standard levering</p>
+                              <p className="font-medium text-gray-900">{t('checkout.standardShipping')}</p>
                               <p className="text-sm text-gray-600">3-5 hverdage</p>
                             </div>
                           </div>
@@ -341,7 +342,7 @@ const CheckoutPage: React.FC = () => {
                           <div className="flex items-center space-x-3">
                             <Truck className="w-5 h-5 text-accent-orange" />
                             <div>
-                              <p className="font-medium text-gray-900">Express levering</p>
+                              <p className="font-medium text-gray-900">{t('checkout.expressShipping')}</p>
                               <p className="text-sm text-gray-600">1-2 hverdage</p>
                             </div>
                           </div>
@@ -355,7 +356,7 @@ const CheckoutPage: React.FC = () => {
                 {/* Step 3: Payment */}
                 {currentStep === 3 && (
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-900 mb-6">Betaling</h2>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('checkout.payment')}</h2>
                   
                     <div className="space-y-4 mb-6">
                       <label className={`block p-4 border-2 rounded-lg cursor-pointer transition-colors ${
@@ -373,7 +374,7 @@ const CheckoutPage: React.FC = () => {
                         />
                         <div className="flex items-center space-x-3">
                           <CreditCard className="w-5 h-5 text-accent-orange" />
-                          <span className="font-medium text-gray-900">Dankort</span>
+                          <span className="font-medium text-gray-900">{t('checkout.dankort')}</span>
                         </div>
                       </label>
                     
@@ -451,7 +452,7 @@ const CheckoutPage: React.FC = () => {
           {/* Order Summary */}
           <ScrollReveal direction="right" delay={200}>
             <div className="bg-white rounded-xl shadow-lg p-8 h-fit">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Ordresammendrag</h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-6">{t('checkout.orderSummary')}</h2>
             
               <div className="space-y-4 mb-6">
                 {items.map((item) => (
@@ -475,15 +476,15 @@ const CheckoutPage: React.FC = () => {
 
               <div className="border-t pt-4 space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal:</span>
+                  <span className="text-gray-600">{t('checkout.subtotal')}:</span>
                   <span className="font-medium">{subtotal} kr</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Levering:</span>
+                  <span className="text-gray-600">{t('checkout.shipping')}:</span>
                   <span className="font-medium">{shipping} kr</span>
                 </div>
                 <div className="flex justify-between text-lg font-bold border-t pt-2">
-                  <span>Total:</span>
+                  <span>{t('checkout.total')}:</span>
                   <span className="text-accent-orange">{total} kr</span>
                 </div>
               </div>
