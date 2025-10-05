@@ -542,7 +542,7 @@ const DesignPage: React.FC = () => {
                       </div>
                       
                       {/* Scale Controls - Show on Gear Hover */}
-                      <div className="absolute bottom-10 right-0 bg-white rounded-lg shadow-xl px-3 py-2 opacity-0 group-hover/gear:opacity-100 transition-all duration-300 pointer-events-none group-hover/gear:pointer-events-auto z-30 min-w-max">
+                      <div className="absolute bottom-0 right-10 bg-white rounded-lg shadow-xl px-3 py-2 opacity-0 group-hover/gear:opacity-100 transition-all duration-300 pointer-events-none group-hover/gear:pointer-events-auto z-30 min-w-max">
                         <div className="flex items-center space-x-2 text-sm">
                           <button
                             onClick={(e) => {
