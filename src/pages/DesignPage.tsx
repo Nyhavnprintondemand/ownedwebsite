@@ -506,11 +506,13 @@ const DesignPage: React.FC = () => {
                   </div>
                 )}
                 {filePreview && (
-                  <div 
-                    className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${
+                  <div
+                    className={`absolute ${
                       isDragging ? 'cursor-grabbing' : 'cursor-grab'
                     } select-none`}
                     style={{
+                      top: `${((printableAreas[selectedProduct].top + printableAreas[selectedProduct].bottom) / 2) * 100}%`,
+                      left: `${((printableAreas[selectedProduct].left + printableAreas[selectedProduct].right) / 2) * 100}%`,
                       transform: `translate(-50%, -50%) translate(${designPosition.x}px, ${designPosition.y}px) scale(${designScale})`,
                       transition: isDragging ? 'none' : 'transform 0.2s ease'
                     }}
