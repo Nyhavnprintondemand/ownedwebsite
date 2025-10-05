@@ -59,22 +59,22 @@ const Header: React.FC = () => {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4">
             {/* Language Switch */}
             <button
               onClick={toggleLanguage}
-              className="group relative p-2 text-gray-700 hover:text-accent-orange transition-all duration-300 hover:scale-110 active:scale-95"
+              className="hidden md:flex group relative p-2 text-gray-700 hover:text-accent-orange transition-all duration-300 hover:scale-110 active:scale-95"
               title={language === 'da' ? 'Switch to English' : 'Skift til Dansk'}
             >
-              <div className="relative">
+              <div className="relative flex items-center gap-1">
                 <Languages className="w-5 h-5" />
-                <span className="absolute -bottom-1 -right-1 text-[8px] font-bold bg-white rounded-full px-1 shadow-sm border border-gray-200 group-hover:border-accent-orange transition-colors">
+                <span className="text-xs font-bold">
                   {language === 'da' ? 'DA' : 'EN'}
                 </span>
               </div>
             </button>
 
-            <button className="p-2 text-gray-700 hover:text-accent-orange transition-all duration-300 hover:scale-110 hover:rotate-12 active:scale-95">
+            <button className="hidden md:block p-2 text-gray-700 hover:text-accent-orange transition-all duration-300 hover:scale-110 hover:rotate-12 active:scale-95">
               <User className="w-5 h-5" />
             </button>
 
@@ -117,6 +117,15 @@ const Header: React.FC = () => {
                 {item.name}
               </Link>
             ))}
+
+            {/* Mobile Language Switch */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 w-full px-3 py-2 text-base font-medium text-gray-700 hover:text-accent-orange transition-all duration-300 hover:scale-105 hover:translate-x-2"
+            >
+              <Languages className="w-5 h-5" />
+              <span>{language === 'da' ? 'Switch to English' : 'Skift til Dansk'}</span>
+            </button>
           </div>
         )}
       </div>
