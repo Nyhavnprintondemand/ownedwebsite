@@ -51,8 +51,8 @@ const DesignPage: React.FC = () => {
       right: 0.70,   // Exclude right sleeve (70% from left)
     },
     hoodie: {
-      top: 0.30,     // Start below hood (30% from top)
-      bottom: 0.70,  // End before pocket area (70% from top)
+      top: 0.20,     // Start higher, below hood (20% from top)
+      bottom: 0.55,  // End much higher to avoid pocket area (55% from top)
       left: 0.32,    // Exclude left sleeve (32% from left)
       right: 0.68,   // Exclude right sleeve (68% from left)
     },
