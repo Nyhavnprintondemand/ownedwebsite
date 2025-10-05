@@ -2,16 +2,18 @@ import React from 'react';
 import { X, Plus, Minus, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
 const MiniCart: React.FC = () => {
-  const { 
-    items, 
-    removeItem, 
-    updateQuantity, 
-    getTotalPrice, 
+  const { t, language } = useLanguage();
+  const {
+    items,
+    removeItem,
+    updateQuantity,
+    getTotalPrice,
     getItemCount,
-    isCartOpen, 
-    setIsCartOpen 
+    isCartOpen,
+    setIsCartOpen
   } = useCart();
 
   const totalPrice = getTotalPrice();
@@ -32,7 +34,7 @@ const MiniCart: React.FC = () => {
           <div className="flex items-center justify-between p-6 border-b bg-gradient-to-r from-gray-50 to-white">
             <h2 className="text-lg font-semibold">
               <span className="gradient-text">
-              Kurv ({itemCount} {itemCount === 1 ? 'vare' : 'varer'})
+              {t('cart.title')} ({itemCount})
               </span>
             </h2>
             <button
@@ -48,14 +50,14 @@ const MiniCart: React.FC = () => {
             {items.length === 0 ? (
               <div className="text-center py-12 animate-fade-in-up hover-lift">
                 <ShoppingBag className="w-16 h-16 text-gray-300 mx-auto mb-4 animate-bounce-gentle" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Din kurv er tom</h3>
-                <p className="text-gray-600 mb-6">Tilføj nogle produkter for at komme i gang</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">{t('cart.empty')}</h3>
+                <p className="text-gray-600 mb-6">{t('cart.continueShopping')}</p>
                 <Link
                   to="/design"
                   onClick={() => setIsCartOpen(false)}
                   className="btn-primary magnetic-btn inline-flex items-center px-4 py-2 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 group"
                 >
-                  Design nu
+                  {t('nav.design')}
                   <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
                     →
                   </div>
@@ -93,7 +95,7 @@ const MiniCart: React.FC = () => {
                           onClick={() => removeItem(item.id)}
                           className="ml-2 text-red-500 hover:text-red-700 text-xs transition-all duration-300 hover:scale-105 hover:wiggle"
                         >
-                          Fjern
+                          {t('cart.remove')}
                         </button>
                       </div>
                     </div>
@@ -107,26 +109,26 @@ const MiniCart: React.FC = () => {
           {items.length > 0 && (
             <div className="border-t p-6 animate-fade-in-up bg-gradient-to-r from-gray-50 to-white">
               <div className="flex justify-between items-center mb-4">
-                <span className="text-lg font-semibold text-gray-900">Total:</span>
+                <span className="text-lg font-semibold text-gray-900">{t('cart.total')}:</span>
                 <span className="text-xl font-bold gradient-text">{totalPrice} kr</span>
               </div>
-              
+
               <Link
                 to="/kassen"
                 onClick={() => setIsCartOpen(false)}
                 className="btn-primary magnetic-btn w-full text-white font-semibold py-3 rounded-lg transition-all duration-300 block text-center transform hover:scale-105 active:scale-95 group"
               >
-                Gå til kassen
+                {t('cart.checkout')}
                 <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1 inline-block">
                   →
                 </div>
               </Link>
-              
+
               <button
                 onClick={() => setIsCartOpen(false)}
                 className="w-full mt-3 border border-gray-300 text-gray-700 font-semibold py-3 rounded-lg hover:border-accent-orange hover:bg-accent-orange hover:text-white transition-all duration-300 transform hover:scale-105 active:scale-95"
               >
-                Fortsæt shopping
+                {t('cart.continueShopping')}
               </button>
             </div>
           )}

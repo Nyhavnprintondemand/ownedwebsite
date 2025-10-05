@@ -1,20 +1,26 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, User, Menu, X } from 'lucide-react';
+import { ShoppingCart, User, Menu, X, Languages } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const { getItemCount, setIsCartOpen } = useCart();
+  const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
   const itemCount = getItemCount();
 
   const navigation = [
-    { name: 'Forside', href: '/' },
-    { name: 'Design selv', href: '/design' },
-    { name: 'Om os', href: '/om-os' },
-    { name: 'Kontakt', href: '/kontakt' }
+    { name: t('nav.home'), href: '/' },
+    { name: t('nav.design'), href: '/design' },
+    { name: t('nav.about'), href: '/om-os' },
+    { name: t('nav.contact'), href: '/kontakt' }
   ];
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'da' ? 'en' : 'da');
+  };
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
@@ -54,11 +60,25 @@ const Header: React.FC = () => {
 
           {/* Actions */}
           <div className="flex items-center space-x-4">
+            {/* Language Switch */}
+            <button
+              onClick={toggleLanguage}
+              className="group relative p-2 text-gray-700 hover:text-accent-orange transition-all duration-300 hover:scale-110 active:scale-95"
+              title={language === 'da' ? 'Switch to English' : 'Skift til Dansk'}
+            >
+              <div className="relative">
+                <Languages className="w-5 h-5" />
+                <span className="absolute -bottom-1 -right-1 text-[8px] font-bold bg-white rounded-full px-1 shadow-sm border border-gray-200 group-hover:border-accent-orange transition-colors">
+                  {language === 'da' ? 'DA' : 'EN'}
+                </span>
+              </div>
+            </button>
+
             <button className="p-2 text-gray-700 hover:text-accent-orange transition-all duration-300 hover:scale-110 hover:rotate-12 active:scale-95">
               <User className="w-5 h-5" />
             </button>
-            
-            <button 
+
+            <button
               onClick={() => setIsCartOpen(true)}
               className="p-2 text-gray-700 hover:text-accent-orange transition-all duration-300 relative hover:scale-110 hover:rotate-12 active:scale-95 group"
             >

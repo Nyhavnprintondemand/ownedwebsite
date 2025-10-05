@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import ScrollReveal from '../components/ScrollReveal';
 import { Mail, Phone, MapPin, Clock, Send, MessageCircle, HelpCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const ContactPage: React.FC = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -81,10 +83,10 @@ const ContactPage: React.FC = () => {
             <div className="absolute top-20 right-20 w-16 h-16 bg-accent-orange-light opacity-10 rounded-full blur-lg float-element"></div>
           
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-playfair">
-              Kontakt <span className="gradient-text">os</span>
+              {t('contact.title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Har du spørgsmål eller brug for hjælp? Vi er her for at hjælpe dig med dit næste projekt.
+              {t('contact.subtitle')}
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-accent-orange-light mx-auto mt-6 rounded-full"></div>
           </div>
@@ -95,7 +97,7 @@ const ContactPage: React.FC = () => {
           <ScrollReveal direction="left" delay={100}>
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-8 font-playfair">
-                <span className="gradient-text">Kom i kontakt</span>
+                <span className="gradient-text">{t('contact.title')}</span>
               </h2>
             
               <div className="space-y-6 mb-8">
@@ -199,15 +201,15 @@ const ContactPage: React.FC = () => {
               <div className="absolute top-4 right-4 w-16 h-16 bg-accent-orange opacity-5 rounded-full blur-lg float-element"></div>
               <div className="absolute bottom-4 left-4 w-12 h-12 bg-accent-orange-light opacity-10 rounded-full float-element"></div>
             
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 font-playfair relative z-10"><span className="gradient-text">Send os en besked</span></h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 font-playfair relative z-10"><span className="gradient-text">{t('contact.send')}</span></h2>
             
               {isSubmitted ? (
                 <div className="text-center py-8 animate-fade-in-up relative z-10">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-in animate-pulse-glow">
                     <Send className="w-8 h-8 text-green-600" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 gradient-text">Tak for din besked!</h3>
-                  <p className="text-gray-600">Vi vender tilbage til dig inden for 24 timer.</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2 gradient-text">{t('contact.success')}</h3>
+                  <p className="text-gray-600">{t('contact.success')}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
@@ -220,7 +222,7 @@ const ContactPage: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Navn *
+                        {t('contact.name')} *
                       </label>
                       <input
                         type="text"
@@ -235,7 +237,7 @@ const ContactPage: React.FC = () => {
                   
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email *
+                        {t('contact.email')} *
                       </label>
                       <input
                         type="email"
@@ -251,7 +253,7 @@ const ContactPage: React.FC = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Emne *
+                      {t('contact.message')} *
                     </label>
                     <select
                       name="subject"
@@ -272,7 +274,7 @@ const ContactPage: React.FC = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Besked *
+                      {t('contact.message')} *
                     </label>
                     <textarea
                       name="message"
@@ -293,12 +295,12 @@ const ContactPage: React.FC = () => {
                     {isSubmitting ? (
                       <>
                         <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        Sender...
+                        {t('contact.sending')}
                       </>
                     ) : (
                       <>
                         <Send className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-                        Send besked
+                        {t('contact.send')}
                         <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
                           →
                         </div>
