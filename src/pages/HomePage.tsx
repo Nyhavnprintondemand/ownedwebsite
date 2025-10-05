@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CreditCard as Edit3, Truck, Shield, Star, Check, Clock, Package, Heart } from 'lucide-react';
 import ScrollReveal from '../components/ScrollReveal';
+import { useLanguage } from '../context/LanguageContext';
 
 const HomePage: React.FC = () => {
+  const { t } = useLanguage();
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -22,13 +24,13 @@ const HomePage: React.FC = () => {
             <div className="text-center lg:text-left">
               <ScrollReveal direction="up" delay={100} duration={1000}>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                  <span className="font-playfair text-gray-900 block">Design din egen</span>
-                  <span className="gradient-text block">T-shirt eller hoodie</span>
+                  <span className="font-playfair text-gray-900 block">{t('hero.title.line1')}</span>
+                  <span className="gradient-text block">{t('hero.title.line2')}</span>
                 </h1>
               </ScrollReveal>
               <ScrollReveal direction="up" delay={300} duration={800}>
                 <p className="text-xl text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0">
-                  Hurtig levering · Ingen minimumsordre
+                  {t('hero.subtitle')}
                 </p>
               </ScrollReveal>
               <ScrollReveal direction="up" delay={500} duration={800}>
@@ -37,7 +39,7 @@ const HomePage: React.FC = () => {
                   className="btn-primary btn-magnetic hover-glow-intense inline-flex items-center px-8 py-4 text-white font-semibold rounded-full group active:scale-95"
                 >
                   <Edit3 className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-                  Design selv
+                  {t('hero.cta')}
                   <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
                     →
                   </div>
@@ -55,7 +57,7 @@ const HomePage: React.FC = () => {
                   />
                 </div>
                 <div className="absolute -top-4 -right-4 bg-gradient-to-r from-accent-orange to-accent-orange-light text-white px-4 py-2 rounded-full text-sm font-semibold animate-bounce-in animate-pulse-glow hover-glow-intense">
-                  Fra 299 kr
+                  {t('hero.price')}
                 </div>
                 {/* Enhanced decorative elements */}
                 <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-accent-orange-light opacity-20 rounded-full blur-lg animate-bounce-gentle"></div>
@@ -73,10 +75,10 @@ const HomePage: React.FC = () => {
           <ScrollReveal direction="up" delay={100} duration={800}>
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
-                <span className="gradient-text">Hvorfor vælge Nyhavn?</span>
+                <span className="gradient-text">{t('home.whyChoose')}</span>
               </h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Vi leverer kvalitet, hurtighed og den bedste kundeservice i Danmark
+                {t('home.whyChoose.subtitle')}
               </p>
               <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-accent-orange-light mx-auto mt-6 rounded-full"></div>
             </div>
@@ -88,8 +90,8 @@ const HomePage: React.FC = () => {
                 <div className="w-16 h-16 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <Package className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">DTF-print teknologi</h3>
-                <p className="text-gray-600">Professionel Direct-to-Film print for skarp kvalitet</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">{t('home.feature1.title')}</h3>
+                <p className="text-gray-600">{t('home.feature1.desc')}</p>
               </div>
             </ScrollReveal>
 
@@ -98,8 +100,8 @@ const HomePage: React.FC = () => {
                 <div className="w-16 h-16 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <Star className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">Holdbare farver</h3>
-                <p className="text-gray-600">Farver der holder i mange år uden at falme</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">{t('home.feature2.title')}</h3>
+                <p className="text-gray-600">{t('home.feature2.desc')}</p>
               </div>
             </ScrollReveal>
 
@@ -108,8 +110,8 @@ const HomePage: React.FC = () => {
                 <div className="w-16 h-16 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <Shield className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">100+ vaske</h3>
-                <p className="text-gray-600">Testet til at holde mindst 100 vaske</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">{t('home.feature3.title')}</h3>
+                <p className="text-gray-600">{t('home.feature3.desc')}</p>
               </div>
             </ScrollReveal>
 
@@ -118,8 +120,8 @@ const HomePage: React.FC = () => {
                 <div className="w-16 h-16 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
                   <Truck className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">Levering 2-4 hverdage</h3>
-                <p className="text-gray-600">Hurtig produktion og forsendelse i Danmark</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-accent-orange transition-colors duration-300">{t('home.feature4.title')}</h3>
+                <p className="text-gray-600">{t('home.feature4.desc')}</p>
               </div>
             </ScrollReveal>
           </div>
@@ -140,10 +142,10 @@ const HomePage: React.FC = () => {
           <ScrollReveal direction="up" delay={100} duration={800}>
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
-                <span className="gradient-text">Sådan fungerer det</span>
+                <span className="gradient-text">{t('home.howItWorks')}</span>
               </h2>
               <p className="text-xl text-gray-600">
-                Fra idé til færdigt produkt på kun 3 nemme trin
+                {t('home.howItWorks.subtitle')}
               </p>
               <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-accent-orange-light mx-auto mt-6 rounded-full"></div>
             </div>
@@ -155,9 +157,9 @@ const HomePage: React.FC = () => {
                 <div className="w-20 h-20 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow hover-glow-intense">
                   <span className="text-white text-2xl font-bold">1</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-accent-orange transition-colors duration-300">Vælg produkt</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-accent-orange transition-colors duration-300">{t('home.step1.number')}</h3>
                 <p className="text-gray-600">
-                  Vælg mellem T-shirt eller hoodie i forskellige farver og størrelser
+                  {t('home.step1.number.desc')}
                 </p>
                 {/* Enhanced Animated Arrow */}
                 <div className="hidden md:block absolute top-10 left-full w-32 h-0.5 z-0">
@@ -180,9 +182,9 @@ const HomePage: React.FC = () => {
                 <div className="w-20 h-20 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow hover-glow-intense">
                   <span className="text-white text-2xl font-bold">2</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-accent-orange transition-colors duration-300">Design dit motiv</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-accent-orange transition-colors duration-300">{t('home.step2.number')}</h3>
                 <p className="text-gray-600">
-                  Upload dit eget design eller logo og se det live på produktet
+                  {t('home.step2.number.desc')}
                 </p>
                 {/* Enhanced Animated Arrow */}
                 <div className="hidden md:block absolute top-10 left-full w-32 h-0.5 z-0">
@@ -205,9 +207,9 @@ const HomePage: React.FC = () => {
                 <div className="w-20 h-20 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow hover-glow-intense">
                   <span className="text-white text-2xl font-bold">3</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-accent-orange transition-colors duration-300">Bestil og modtag</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-accent-orange transition-colors duration-300">{t('home.step3.number')}</h3>
                 <p className="text-gray-600">
-                  Betal sikkert og modtag dit custom produkt inden for 2-4 hverdage
+                  {t('home.step3.number.desc')}
                 </p>
               </div>
             </ScrollReveal>
@@ -222,23 +224,20 @@ const HomePage: React.FC = () => {
             <ScrollReveal direction="right" delay={100} duration={800}>
               <div className="hover-lift-intense">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playfair">
-                  <span className="gradient-text">Hvad er Print on Demand?</span>
+                  <span className="gradient-text">{t('home.whatIsPOD')}</span>
                 </h2>
                 <p className="text-lg text-gray-600 mb-6">
-                  Print on Demand (POD) tilbyder en problemfri måde at skabe produkter af høj kvalitet og 
-                  sælge dem direkte til kunder. Denne metode giver dig mulighed for at tilbyde personaliserede 
-                  varer uden behov for at administrere lager eller forsendelseslogistik.
+                  {t('home.whatIsPOD.p1')}
                 </p>
                 <p className="text-lg text-gray-600 mb-8">
-                  Med Nyhavn POD tager vi os af produktion og forsendelse af dine produkter på bestilling, 
-                  hvilket gør det nemt at sælge custom tøj.
+                  {t('home.whatIsPOD.p2')}
                 </p>
                 <div className="glass-morphism p-6 rounded-xl hover-lift transition-all duration-300 border border-accent-orange border-opacity-20 hover-glow-intense">
                   <div className="flex items-center space-x-2">
                     <Clock className="w-5 h-5 text-accent-orange animate-pulse-soft" />
-                    <span className="font-semibold text-gray-900">Leveringstid:</span>
+                    <span className="font-semibold text-gray-900">{t('home.deliveryTime')}</span>
                   </div>
-                  <span className="gradient-text font-bold text-lg">2-4 hverdage</span>
+                  <span className="gradient-text font-bold text-lg">{t('home.deliveryDays')}</span>
                 </div>
               </div>
             </ScrollReveal>
