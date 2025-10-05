@@ -282,10 +282,10 @@ const DesignPage: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <button
                     onClick={() => setSelectedProduct('tshirt')}
-                    className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
+                    className={`p-4 rounded-xl border-2 transition-all duration-300 active:scale-95 group ${
                       selectedProduct === 'tshirt'
                         ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow text-white'
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-gray-200 hover:border-gray-300 hover:scale-105 hover-tilt'
                     }`}
                   >
                     <img
@@ -303,10 +303,10 @@ const DesignPage: React.FC = () => {
                 
                   <button
                     onClick={() => setSelectedProduct('hoodie')}
-                    className={`p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
+                    className={`p-4 rounded-xl border-2 transition-all duration-300 active:scale-95 group ${
                       selectedProduct === 'hoodie'
                         ? 'border-accent-orange bg-gradient-to-br from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow text-white'
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-gray-200 hover:border-gray-300 hover:scale-105 hover-tilt'
                     }`}
                   >
                     <img
@@ -332,10 +332,10 @@ const DesignPage: React.FC = () => {
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`py-2 px-4 rounded-lg border font-medium transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 ${
+                      className={`py-2 px-4 rounded-lg border font-medium transition-all duration-300 active:scale-95 ${
                         selectedSize === size
                           ? 'border-accent-orange bg-gradient-to-r from-accent-orange to-accent-orange-light text-white animate-pulse-glow'
-                          : 'border-gray-300 hover:border-gray-400'
+                          : 'border-gray-300 hover:border-gray-400 hover:scale-105 hover-tilt'
                       }`}
                     >
                       {size}
@@ -352,10 +352,10 @@ const DesignPage: React.FC = () => {
                     <button
                       key={color.name}
                       onClick={() => setSelectedColor(color.name)}
-                      className={`p-3 rounded-lg border-2 flex items-center space-x-2 transition-all duration-300 hover:scale-105 hover-tilt active:scale-95 group ${
+                      className={`p-3 rounded-lg border-2 flex items-center space-x-2 transition-all duration-300 active:scale-95 group ${
                         selectedColor === color.name
                           ? 'border-accent-orange bg-gradient-to-r from-accent-orange-light to-accent-orange bg-opacity-10 animate-pulse-glow'
-                          : 'border-gray-200 hover:border-gray-300'
+                          : 'border-gray-200 hover:border-gray-300 hover:scale-105 hover-tilt'
                       }`}
                     >
                       <div
@@ -499,11 +499,13 @@ const DesignPage: React.FC = () => {
                     />
                     
                     {/* Gear Icon with Scale Controls */}
-                    <div 
-                      className="absolute -top-8 -right-8 group/gear hover:z-30"
+                    <div
+                      className="absolute group/gear hover:z-30"
                       style={{
                         transform: `scale(${1/designScale})`,
-                        transformOrigin: 'center'
+                        transformOrigin: 'bottom left',
+                        top: `${-40 / designScale}px`,
+                        right: `${-40 / designScale}px`
                       }}
                     >
                       <div className="w-8 h-8 bg-accent-orange rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 cursor-pointer">
