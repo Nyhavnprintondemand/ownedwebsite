@@ -486,7 +486,7 @@ const DesignPage: React.FC = () => {
                   ref={productImageRef}
                   src={currentProduct.image}
                   alt={`${currentProduct.name} preview`}
-                  className="w-full max-w-md mx-auto rounded-lg transition-transform duration-300 hover:scale-105"
+                  className="w-full max-w-md mx-auto rounded-lg"
                 />
                 {filePreview && showBoundary && (
                   <div
