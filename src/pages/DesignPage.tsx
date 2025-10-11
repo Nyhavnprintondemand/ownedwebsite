@@ -4,22 +4,6 @@ import { Upload, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { createClient } from '@supabase/supabase-js';
-
-// Initialize Supabase client with anon key for general use
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabaseServiceKey = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing Supabase environment variables. Please check your .env file.');
-}
-
-// Initialize Supabase client with anon key for general use
-const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
-
-// Initialize Supabase client with service role for file uploads
-const supabaseServiceRole = supabaseUrl && supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey) : null;
 
 const DesignPage: React.FC = () => {
   const { t } = useLanguage();
@@ -29,7 +13,6 @@ const DesignPage: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
   
   // Design positioning and scaling states
   const [designPosition, setDesignPosition] = useState({ x: 0, y: 0 });
@@ -210,59 +193,8 @@ const DesignPage: React.FC = () => {
     }
   };
 
-  const uploadArtworkToStorage = async (file: File): Promise<string | null> => {
-    try {
-      setIsUploading(true);
-      
-      if (!supabaseServiceRole) {
-        console.error('Supabase service role client not initialized. Please check your environment variables.');
-        return null;
-      }
-      
-      // Generate unique filename
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
-      const filePath = `artwork/${fileName}`;
 
-      // Upload file to Supabase Storage
-      const { data, error } = await supabaseServiceRole.storage
-        .from('order-artwork')
-        .upload(filePath, file, {
-          cacheControl: '3600',
-          upsert: false
-        });
-
-      if (error) {
-        console.error('Error uploading file:', error);
-        return null;
-      }
-
-      // Get public URL
-      const { data: { publicUrl } } = supabaseServiceRole.storage
-        .from('order-artwork')
-        .getPublicUrl(filePath);
-
-      return publicUrl;
-    } catch (error) {
-      console.error('Error in uploadArtworkToStorage:', error);
-      return null;
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleAddToCart = async () => {
-    let artworkUrl: string | undefined = undefined;
-
-    // Upload artwork if file is selected
-    if (uploadedFile) {
-      artworkUrl = await uploadArtworkToStorage(uploadedFile);
-      if (!artworkUrl) {
-        alert('Der opstod en fejl ved upload af dit design. Prøv igen.');
-        return;
-      }
-    }
-
+  const handleAddToCart = () => {
     const item = {
       id: selectedProduct,
       name: currentProduct.name,
@@ -271,11 +203,11 @@ const DesignPage: React.FC = () => {
       quantity,
       price: currentProduct.price,
       image: currentProduct.image,
-      artwork: artworkUrl
+      artwork: filePreview || undefined
     };
 
     addItem(item);
-    
+
     // Show success message or redirect
     navigate('/');
   };
@@ -448,22 +380,12 @@ const DesignPage: React.FC = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  disabled={isUploading}
-                  className="btn-primary magnetic-btn w-full text-white py-4 rounded-xl font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transform hover:scale-105 active:scale-95 group"
+                  className="btn-primary magnetic-btn w-full text-white py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center transform hover:scale-105 active:scale-95 group"
                 >
-                  {isUploading ? (
-                    <>
-                      <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      {t('contact.sending')}
-                    </>
-                  ) : (
-                    <>
-                      {t('design.addToCart')}
-                      <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
-                        →
-                      </div>
-                    </>
-                  )}
+                  {t('design.addToCart')}
+                  <div className="ml-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
+                    →
+                  </div>
                 </button>
               </div>
             </div>

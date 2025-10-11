@@ -50,10 +50,49 @@ const CheckoutPage: React.FC = () => {
     try {
       // Get Supabase URL from environment
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      
+
       if (!supabaseUrl) {
         throw new Error('Supabase configuration not found. Please connect to Supabase first.');
       }
+
+      // Upload artwork for items that have base64 data URLs
+      const itemsWithUploadedArtwork = await Promise.all(
+        items.map(async (item) => {
+          if (item.artwork && item.artwork.startsWith('data:image')) {
+            try {
+              // Extract file info from data URL
+              const matches = item.artwork.match(/^data:([^;]+);base64,/);
+              const fileType = matches ? matches[1] : 'image/png';
+              const fileExt = fileType.split('/')[1] || 'png';
+
+              // Upload to Edge Function
+              const uploadResponse = await fetch(`${supabaseUrl}/functions/v1/upload-artwork`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+                },
+                body: JSON.stringify({
+                  fileData: item.artwork,
+                  fileName: `design.${fileExt}`,
+                  fileType: fileType
+                }),
+              });
+
+              if (!uploadResponse.ok) {
+                throw new Error('Failed to upload artwork');
+              }
+
+              const uploadResult = await uploadResponse.json();
+              return { ...item, artwork: uploadResult.publicUrl };
+            } catch (uploadError) {
+              console.error('Error uploading artwork:', uploadError);
+              throw new Error('Failed to upload custom design. Please try again.');
+            }
+          }
+          return item;
+        })
+      );
 
       // Prepare order data
       const orderData = {
@@ -67,7 +106,7 @@ const CheckoutPage: React.FC = () => {
           postalCode: customerInfo.postalCode.trim(),
           country: customerInfo.country
         },
-        items: items.map(item => ({
+        items: itemsWithUploadedArtwork.map(item => ({
           id: item.id,
           name: item.name,
           size: item.size,
@@ -108,7 +147,7 @@ const CheckoutPage: React.FC = () => {
       clearCart();
       setOrderId(result.orderId || 'Unknown');
       setOrderComplete(true);
-      
+
     } catch (error) {
       console.error('Error processing order:', error);
       setOrderError(error instanceof Error ? error.message : 'Failed to process order. Please try again.');
