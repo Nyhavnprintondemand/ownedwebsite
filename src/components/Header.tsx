@@ -32,7 +32,7 @@ const Header: React.FC = () => {
               <span className="text-white font-bold text-sm">Z</span>
             </div>
             <div className="flex flex-col leading-tight">
-              <span className="text-2xl font-bold text-gray-900 tracking-wide group-hover:text-accent-orange transition-colors duration-300">ZM PREMIUM</span>
+              <span className="text-2xl font-bold text-gray-900 tracking-[0.32em] group-hover:text-accent-orange transition-colors duration-300">ZM PREMIUM</span>
               <span className="text-[10px] font-bold gradient-text -mt-1 tracking-[0.32em]">PRINT ON DEMAND</span>
             </div>
           </Link>
