@@ -29,11 +29,11 @@ const Header: React.FC = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
             <div className="w-8 h-8 bg-gradient-to-br from-accent-orange to-accent-orange-light rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-pulse-glow">
-              <span className="text-white font-bold text-sm">Z</span>
+              <span className="text-white font-bold text-sm">N</span>
             </div>
             <div className="flex flex-col leading-tight">
-              <span className="text-2xl font-bold text-gray-900 tracking-wide group-hover:text-accent-orange transition-colors duration-300">ZM PREMIUM</span>
-              <span className="text-[10px] font-bold gradient-text -mt-1 tracking-[0.32em]">PRINT ON DEMAND</span>
+              <span className="text-2xl font-bold text-gray-900 tracking-wide group-hover:text-accent-orange transition-colors duration-300">NYHAVN</span>
+              <span className="text-[10px] font-bold gradient-text -mt-1 tracking-widest">PRINT ON DEMAND</span>
             </div>
           </Link>
 
