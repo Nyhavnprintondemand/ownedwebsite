@@ -476,7 +476,7 @@ const DesignPage: React.FC = () => {
                 <span className="gradient-text">{t('design.preview')}</span>
               </h2>
               <div
-                className="relative hover-tilt overflow-hidden"
+                className="relative overflow-hidden"
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
